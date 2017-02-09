@@ -8,6 +8,7 @@ export default class Card extends React.Component{
             name: "Noname",
             avatar_url: "http://github-jobs.s3.amazonaws.com/aa333d4e-adeb-11e2-9d28-44d170059efd.png"
         };
+        this.onClickHandler =  this.onClickHandler.bind(this)
     }
 
     componentDidMount() {
@@ -21,8 +22,12 @@ export default class Card extends React.Component{
         });
     }
 
+    onClickHandler(){
+        this.props.onClick(this.state.name);
+    }
+
     render() {
-        return <div className="col-6 col-lg-4">
+        return <div className="col-6 col-lg-4" onClick={this.onClickHandler}>
                 <img src={this.state.avatar_url} width="80"/>
                 <h3>{this.state.name}</h3>
                 <button className="btn btn-secondary" href="#" role="button">Trade</button>

@@ -9,11 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
+    "bootstrap": "3.3.7",
+    "canvasjs": "1.8.1",
     "jquery": "^1.9.1",
-    "bootstrap":"3.3.7",
-    "canvasjs":"1.8.1"
+    "lightstreamer-client": "^7.0.5",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",

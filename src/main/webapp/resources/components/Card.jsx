@@ -5,9 +5,9 @@ export default class Card extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            currency: "Noname",
-            price: "20000",
-            riskLvl: "RISKY",
+            currency: "BTC",
+            price: "1000 USD",
+            riskLvl: "NON-RISKY",
             avatar_url: "http://bitcoin.org/img/icons/opengraph.png"
         };
     }
@@ -26,18 +26,24 @@ export default class Card extends React.Component{
     }
 
     render() {
+
         let rand = Math.abs(Math.floor(Math.random() * (1 - 100 + 1)) + 1);
         console.log(rand);
-
+        let computeRiskClasslvl = (rand) => {
+            if (rand<40) return 'progress-bar progress-bar-success';
+            else if (rand>60) return 'progress-bar progress-bar-danger';
+            else if (rand<60 || rand>40) return 'progress-bar progress-bar-warning';
+        };
+        console.log(computeRiskClasslvl)
         return <div className="col-6 col-lg-4">
             <div className="thumbnail">
                 <img src={this.state.avatar_url} width="80"/>
                 <div className="caption">
-                    <p>{this.state.currency}</p>
-                    <p>{this.state.price}</p>
-                    <p>{this.state.riskLvl}</p>
+                    <p>SYMBOL {this.state.currency}</p>
+                    <p>PRICE {this.state.price}</p>
+                    <p>RISK LVL {this.state.riskLvl}</p>
                     <div className='progress'>
-                        <div className='progress-bar progress-bar-danger'
+                        <div className={computeRiskClasslvl(rand)}
                              role='progressbar'
                              aria-valuenow={rand}
                              aria-valuemin='0'

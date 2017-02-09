@@ -98,22 +98,22 @@
 
 	        _this.addCard = _this.addCard.bind(_this);
 	        _this.state = {
-	            logins: []
+	            curencies: []
 	        };
 	        return _this;
 	    }
 
 	    _createClass(ContainerDiv, [{
 	        key: 'addCard',
-	        value: function addCard(login) {
+	        value: function addCard(currency) {
 	            var component = this;
-	            this.setState({ logins: component.state.logins.concat(login) });
+	            this.setState({ curencies: component.state.curencies.concat(currency) });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var cards = this.state.logins.map(function (login) {
-	                return _react2.default.createElement(_Card2.default, { key: login, login: login });
+	            var cards = this.state.curencies.map(function (login) {
+	                return _react2.default.createElement(_Card2.default, { key: currency, name: currency });
 	            });
 	            return _react2.default.createElement(
 	                'div',
@@ -32714,7 +32714,7 @@
 	        key: 'handleSubmit',
 	        value: function handleSubmit(e) {
 	            e.preventDefault();
-	            var loginInput = _reactDom2.default.findDOMNode(this.refs.login);
+	            var loginInput = _reactDom2.default.findDOMNode(this.refs.currency);
 	            console.log(loginInput);
 	            this.props.addCard(loginInput.value);
 	            loginInput.value = '';
@@ -32725,7 +32725,7 @@
 	            return _react2.default.createElement(
 	                'form',
 	                { onSubmit: this.handleSubmit },
-	                _react2.default.createElement('input', { placeholder: 'GitHub login', ref: 'login' }),
+	                _react2.default.createElement('input', { placeholder: 'GitHub login', ref: 'currency' }),
 	                _react2.default.createElement(
 	                    'button',
 	                    null,

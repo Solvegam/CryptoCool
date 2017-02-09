@@ -9,21 +9,21 @@ export default class ContainerDiv extends React.Component{
         super(props);
         this.addCard = this.addCard.bind(this);
         this.state = {
-            logins: []
+            curencies: []
         };
     }
 
-    addCard(login) {
+    addCard(currency) {
         let component = this;
-        this.setState({logins: component.state.logins.concat(login)});
+        this.setState({curencies: component.state.curencies.concat(currency)});
     }
 
     render() {
-        let cards = this.state.logins.map(function (login) {
-            return <Card key={login} login={login} />
+        let cards = this.state.curencies.map(function (currency) {
+            return <Card key={currency} name={currency} />
         });
-        return <div className="container-fluid">
-            <div className="row">
+        return <div className="container">
+            <div className="row row-offcanvas row-offcanvas-right">
                 <h3>Search by github name</h3>
                 <SearchForm addCard={this.addCard}/>
                 {cards}

@@ -9,7 +9,7 @@ export default class SearchForm extends React.Component{
 
     handleSubmit(e) {
         e.preventDefault();
-        let loginInput = ReactDOM.findDOMNode(this.refs.login);
+        let loginInput = ReactDOM.findDOMNode(this.refs.currency);
         console.log(loginInput);
         this.props.addCard(loginInput.value);
         loginInput.value = '';
@@ -17,7 +17,7 @@ export default class SearchForm extends React.Component{
 
     render() {
         return <form onSubmit={this.handleSubmit}>
-            <input placeholder="GitHub login" ref="login"/>
+            <input placeholder="GitHub login" ref="currency"/>
             <button>GO</button>
         </form>;
     }

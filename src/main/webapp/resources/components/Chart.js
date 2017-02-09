@@ -9,7 +9,7 @@ export default class Chart extends React.Component{
     componentDidMount() {
         let component = this;
         $.ajax({
-            url: 'http://api.github.com/users/' + this.props.login,
+            url: 'http://api.github.com/users/' + this.props.currency,
             dataType: 'json',
             success: function(data){
                 component.setState(data);

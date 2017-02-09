@@ -13,7 +13,7 @@ export default class Card extends React.Component{
     componentDidMount() {
         let component = this;
         $.ajax({
-            url: 'http://api.github.com/users/' + this.props.login,
+            url: 'http://api.github.com/users/' + this.props.currency,
             dataType: 'json',
             success: function(data){
                 component.setState(data);
@@ -22,12 +22,10 @@ export default class Card extends React.Component{
     }
 
     render() {
-        return <div className="row">
-            <div className="label-danger">
+        return <div className="col-6 col-lg-4">
                 <img src={this.state.avatar_url} width="80"/>
                 <h3>{this.state.name}</h3>
-                <hr/>
-            </div>
+                <button className="btn btn-secondary" href="#" role="button">Trade</button>
         </div>;
     }
 }

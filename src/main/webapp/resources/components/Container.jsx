@@ -36,7 +36,7 @@ export default class ContainerDiv extends React.Component{
             return <TradeWindow closeTradeWindow={this.closeTradeWindow}/>
         }
 
-        let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} />);
+        let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} onClick={this.selectCurrency} />);
 
         return <div>
             <div className="page-header">

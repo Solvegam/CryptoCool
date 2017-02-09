@@ -27,7 +27,7 @@ export default class Card extends React.Component{
     }
 
     onClickHandler(){
-      this.props.onClick(this.state.name);
+      this.props.onClick(this.state.currency);
     }
 
     render() {
@@ -58,7 +58,7 @@ export default class Card extends React.Component{
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-primary" href="#" role="button">Trade</button>
+                <button className="btn btn-primary" onClick={this.onClickHandler} role="button">Trade</button>
             </div>
         </div>;
     }

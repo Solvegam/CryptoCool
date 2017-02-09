@@ -112,22 +112,41 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var cards = this.state.curencies.map(function (login) {
-	                return _react2.default.createElement(_Card2.default, { key: currency, name: currency });
+	            var cards = this.state.curencies.map(function (currency) {
+	                return _react2.default.createElement(_Card2.default, { key: currency + 1, name: currency });
 	            });
+
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'container-fluid' },
+	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'row' },
+	                    { className: 'page-header' },
 	                    _react2.default.createElement(
-	                        'h3',
+	                        'h1',
 	                        null,
-	                        'Search by github name'
-	                    ),
-	                    _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
-	                    cards
+	                        'Crypto Cool',
+	                        _react2.default.createElement(
+	                            'small',
+	                            null,
+	                            '  best trade and analytics platform'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row row-offcanvas row-offcanvas-right' },
+	                        _react2.default.createElement(
+	                            'h3',
+	                            null,
+	                            'Search by github name'
+	                        ),
+	                        _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
+	                        cards
+	                    )
 	                )
 	            );
 	        }
@@ -21612,8 +21631,10 @@
 	        var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
 
 	        _this.state = {
-	            name: "Noname",
-	            avatar_url: "http://github-jobs.s3.amazonaws.com/aa333d4e-adeb-11e2-9d28-44d170059efd.png"
+	            currency: "BTC",
+	            price: "1000 USD",
+	            riskLvl: "NON-RISKY",
+	            avatar_url: "http://bitcoin.org/img/icons/opengraph.png"
 	        };
 	        return _this;
 	    }
@@ -21622,30 +21643,78 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var component = this;
+
 	            _jquery2.default.ajax({
-	                url: 'http://api.github.com/users/' + this.props.login,
+	                url: 'http://api.github.com/users/' + this.props.currency,
 	                dataType: 'json',
 	                success: function success(data) {
-	                    component.setState(data);
+	                    console.log(data);
+	                    //component.setState(Object.assign({},data));
 	                }
 	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+
+	            var rand = Math.abs(Math.floor(Math.random() * (1 - 100 + 1)) + 1);
+	            console.log(rand);
+	            var computeRiskClasslvl = function computeRiskClasslvl(rand) {
+	                if (rand < 40) return 'progress-bar progress-bar-success';else if (rand > 60) return 'progress-bar progress-bar-danger';else if (rand < 60 || rand > 40) return 'progress-bar progress-bar-warning';
+	            };
+	            console.log(computeRiskClasslvl);
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'row' },
+	                { className: 'col-6 col-lg-4' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'label-danger' },
+	                    { className: 'thumbnail' },
 	                    _react2.default.createElement('img', { src: this.state.avatar_url, width: '80' }),
 	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        this.state.name
+	                        'div',
+	                        { className: 'caption' },
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'SYMBOL ',
+	                            this.state.currency
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'PRICE ',
+	                            this.state.price
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'RISK LVL ',
+	                            this.state.riskLvl
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'progress' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: computeRiskClasslvl(rand),
+	                                    role: 'progressbar',
+	                                    'aria-valuenow': rand,
+	                                    'aria-valuemin': '0',
+	                                    'aria-valuemax': '100',
+	                                    style: { width: rand + '%' } },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'sr-only' },
+	                                    '70% Complete'
+	                                )
+	                            )
+	                        )
 	                    ),
-	                    _react2.default.createElement('hr', null)
+	                    _react2.default.createElement(
+	                        'button',
+	                        { className: 'btn btn-primary', href: '#', role: 'button' },
+	                        'Trade'
+	                    )
 	                )
 	            );
 	        }

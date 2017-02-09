@@ -1,5 +1,6 @@
 package com.crypto.cool.service.impl;
 
+import static java.math.BigDecimal.ROUND_CEILING;
 import static java.math.BigDecimal.valueOf;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ public class RandomChartServiceImpl implements RandomChartService {
 	private void fillList(final List<BigDecimal> resultList, final BigDecimal price) {
 		final double maxOrMin = getMaxOrMin(price);
 
-		resultList.add(BigDecimal.valueOf(maxOrMin));
+		resultList.add(BigDecimal.valueOf(maxOrMin).setScale(2, ROUND_CEILING));
 	}
 
 	private double getMaxOrMin(final BigDecimal price){

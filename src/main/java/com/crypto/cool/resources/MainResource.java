@@ -40,11 +40,12 @@ public class MainResource {
 	public Map<String, List<BigDecimal>> getCardsValues(
 			@PathParam("price") BigDecimal price){
 
-		return randomChartService.generate(price);
+		return  randomChartService.generate(price);
 	}
 
 	@GET
 	@Path("/cards")
+	@Produces(MediaType.APPLICATION_JSON)
 	public List<CardDto> getCardsValues(){
 		return ibmService.getCardsValues();
 	}

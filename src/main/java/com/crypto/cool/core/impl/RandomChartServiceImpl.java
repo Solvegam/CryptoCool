@@ -31,7 +31,7 @@ public class RandomChartServiceImpl implements RandomChartService {
 
 	private void fillList(final List<BigDecimal> resultList, final BigDecimal price){
 		final BigDecimal max = price.add(BigDecimal.TEN);  // TODO: 2/9/17 fix if price is 0.00012, must count that
-		final BigDecimal min = price.min(BigDecimal.TEN);  // TODO: 2/9/17 the same
+		final BigDecimal min = price.min(BigDecimal.ONE);  // TODO: 2/9/17 the same
 
 		resultList.add(BigDecimal.valueOf(Math.random() * (max.min(min).doubleValue())));
 	}

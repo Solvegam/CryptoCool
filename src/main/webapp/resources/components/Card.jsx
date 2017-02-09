@@ -17,11 +17,11 @@ export default class Card extends React.Component{
         let component = this;
 
         $.ajax({
-            url: 'http://api.github.com/users/' + this.props.currency,
+            url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
             dataType: 'json',
             success: function(data){
                 console.log(data);
-                //component.setState(Object.assign({},data));
+                component.setState(data);
             }
         });
     }

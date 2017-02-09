@@ -9,7 +9,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,8 +48,9 @@ public class MainResource {
 	@GET
 	@Path("/cards")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<CardDto> getCardsValues(){
-		return ibmService.getCardsValues();
+	public Response getCardsValues(){
+		final List<CardDto> myList = ibmService.getCardsValues();
+		return Response.ok().entity(new GenericEntity<List<CardDto>>(myList) {}).build();
 	}
 
 	@GET

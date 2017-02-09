@@ -32,24 +32,28 @@ export default class ContainerDiv extends React.Component{
 
     render() {
 
+        let content;
         if ( this.state.selectedCurrency ){
-            return <TradeWindow closeTradeWindow={this.closeTradeWindow}/>
+            content = <div className="row"><TradeWindow closeTradeWindow={this.closeTradeWindow}/></div>
+        }
+        else {
+            let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} onClick={this.selectCurrency} />);
+            content = <div className="row row-offcanvas row-offcanvas-right">
+                <h3>Search by github name</h3>
+                <SearchForm addCard={this.addCard}/>
+              {cards}
+            </div>
         }
 
-        let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} onClick={this.selectCurrency} />);
 
         return <div>
-            <div className="page-header">
+            <div className="page-header" style={{"textAlign": "center"}}>
                 <h1>Crypto Cool
                     <small>  best trade and analytics platform</small>
                 </h1>
             </div>
             <div className="container">
-                <div className="row row-offcanvas row-offcanvas-right">
-                    <h3>Search by github name</h3>
-                    <SearchForm addCard={this.addCard}/>
-                    {cards}
-                </div>
+              {content}
             </div>
         </div>;
     }

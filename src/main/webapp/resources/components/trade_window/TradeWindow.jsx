@@ -14,7 +14,11 @@ export default class TradeWindow extends React.Component {
 
   render() {
     return <div>
-      <div onClick={this.back}>Back</div>
+      <button className="btn btn-primary" role="button" onClick={this.back}>
+        <img src="http://codenamekash.com/aau/wnm617/midterm/image/back_button.png"
+             style={{"width": "15px", "marginRight": "4px", "marginTop": "-3px"}}/>
+        Back
+      </button>
       <MarketDepth/>
     </div>
   }

@@ -12,15 +12,15 @@ export default class Chart extends React.Component {
   }
 
   componentDidMount() {
-    var myClient = new LightstreamerClient("http://push.lightstreamer.com","MARKETDEPTH");
+    var myClient = new LightstreamerClient("http://push.lightstreamer.com", "MARKETDEPTH");
 
-    var buyGrid = new DynaGrid("buyside",true);
-    buyGrid.setAutoCleanBehavior(true,false);
-    buyGrid.setSort("key",true,true);
+    var buyGrid = new DynaGrid("buyside", true);
+    buyGrid.setAutoCleanBehavior(true, false);
+    buyGrid.setSort("key", true, true);
     // buyGrid.setMaxDynaRows(15);
     // buyGrid.setAutoScroll("PAGE", "buy-elemet");
     buyGrid.addListener({
-      onVisualUpdate: function(key,info) {
+      onVisualUpdate: function (key, info) {
         if (info == null) {
           return;
         }
@@ -30,15 +30,15 @@ export default class Chart extends React.Component {
         info.setCellStyle("command", "commandhot", "commandcold")
       }
     });
-    var buySubscription = new Subscription("COMMAND","AXY_COMP_BUYSIDE",["command", "key", "qty"]);
+    var buySubscription = new Subscription("COMMAND", "AXY_COMP_BUYSIDE", ["command", "key", "qty"]);
     buySubscription.setRequestedSnapshot("yes");
 
     buySubscription.addListener(buyGrid);
     buySubscription.addListener({
-      onClearSnapshot: function(itemName,itemPos) {
+      onClearSnapshot: function (itemName, itemPos) {
         console.info("Clear Snapshot: " + itemName + ".");
       },
-      onItemLostUpdates: function(itemName, itemPos, lostUpdates) {
+      onItemLostUpdates: function (itemName, itemPos, lostUpdates) {
         console.error("Lost Updates for " + itemName + ": " + lostUpdates);
 
         // Unsubcribe and then subscribe again the Item in order that the snapshot restore the list.
@@ -52,11 +52,11 @@ export default class Chart extends React.Component {
 
     // SELL side subscription:
 
-    var sellGrid = new DynaGrid("sellside",true);
-    sellGrid.setAutoCleanBehavior(true,false);
-    sellGrid.setSort("key",false, true);
+    var sellGrid = new DynaGrid("sellside", true);
+    sellGrid.setAutoCleanBehavior(true, false);
+    sellGrid.setSort("key", false, true);
     sellGrid.addListener({
-      onVisualUpdate: function(key,info) {
+      onVisualUpdate: function (key, info) {
         if (info == null) {
           return;
         }
@@ -67,16 +67,16 @@ export default class Chart extends React.Component {
       }
     });
 
-    var sellSubscription = new Subscription("COMMAND","AXY_COMP_SELLSIDE",["command", "key", "qty"]);
+    var sellSubscription = new Subscription("COMMAND", "AXY_COMP_SELLSIDE", ["command", "key", "qty"]);
 
     sellSubscription.setRequestedSnapshot("yes");
 
     sellSubscription.addListener(sellGrid);
     sellSubscription.addListener({
-      onClearSnapshot: function(itemName,itemPos) {
+      onClearSnapshot: function (itemName, itemPos) {
         console.info("Clear Snapshot: " + itemName + ".");
       },
-      onItemLostUpdates: function(itemName, itemPos, lostUpdates) {
+      onItemLostUpdates: function (itemName, itemPos, lostUpdates) {
         console.error("Lost Updates for " + itemName + ": " + lostUpdates);
 
         // Unsubcribe and then subscribe again the Item in order that the snapshot restore the list.
@@ -88,11 +88,11 @@ export default class Chart extends React.Component {
     myClient.subscribe(sellSubscription);
 
 
-    var sellGrid = new DynaGrid("sellside",true);
-    sellGrid.setAutoCleanBehavior(true,false);
-    sellGrid.setSort("key",false, true);
+    var sellGrid = new DynaGrid("sellside", true);
+    sellGrid.setAutoCleanBehavior(true, false);
+    sellGrid.setSort("key", false, true);
     sellGrid.addListener({
-      onVisualUpdate: function(key,info) {
+      onVisualUpdate: function (key, info) {
         if (info == null) {
           return;
         }
@@ -103,16 +103,16 @@ export default class Chart extends React.Component {
       }
     });
 
-    sellSubscription = new Subscription("COMMAND","AXY_COMP_SELLSIDE",["command", "key", "qty"]);
+    sellSubscription = new Subscription("COMMAND", "AXY_COMP_SELLSIDE", ["command", "key", "qty"]);
 
     sellSubscription.setRequestedSnapshot("yes");
 
     sellSubscription.addListener(sellGrid);
     sellSubscription.addListener({
-      onClearSnapshot: function(itemName,itemPos) {
+      onClearSnapshot: function (itemName, itemPos) {
         console.info("Clear Snapshot: " + itemName + ".");
       },
-      onItemLostUpdates: function(itemName, itemPos, lostUpdates) {
+      onItemLostUpdates: function (itemName, itemPos, lostUpdates) {
         console.error("Lost Updates for " + itemName + ": " + lostUpdates);
 
         // Unsubcribe and then subscribe again the Item in order that the snapshot restore the list.
@@ -127,40 +127,15 @@ export default class Chart extends React.Component {
 
   render() {
     return <div>
-      <div id="wrap">
-        <div>
+      <div id="wrap" style={{'float':'right'}}>
+        <div style={{'height' : "680px", "overflow" : "hidden"}}>
           <form id="order-ins" className="tablespacer">
-            <table className="inputPanel" width="690px" cellPadding="0" cellSpacing="0">
+            <table className="inputPanel" width="490px" cellPadding="0" cellSpacing="0">
               <tbody>
-              <tr height="35px">
-                <td width="230px">
-                  <select id="stockN" width="220px" type="select" className="inputelement"></select>
-                </td>
-                <td width="210px" style={{"textAlign": "center", "paddingLeft": "10px"}}>
-                  Qty: <input id="qtyN" type="text" className="inputelement" size="9"/>
-                </td>
-                <td width="230px" style={{"textAlign": "right"}}>
-                  Price: <input id="pxN" type="text" className="inputelement" size="9"/>
-                </td>
-
-              </tr>
               <tr className="inputPanel" height="35px">
-                <td width="230px"></td>
                 <td width="210px" style={{"textAlign": "center"}}>
                   <input type="submit" id="buy" className="buttonBuy" disabled value="Buy"/>
                   <input type="submit" id="sell" className="buttonSell" disabled value="Sell"/>
-                </td>
-                <td width="230px" style={{"textAlign": "right"}}>
-                  <input type="submit" id="gridOpt"
-                         style={{
-                           "background": "#fff url('images/plus.gif') no-repeat center right",
-                           "color": "#444",
-                           "paddingRight": "16px",
-                           "fontSize": "9pt",
-                           "borderStyle": "none",
-                           "borderRadius": "3px"
-                         }}
-                         value="Show my orders "/>
                 </td>
               </tr>
               </tbody>
@@ -168,7 +143,7 @@ export default class Chart extends React.Component {
           </form>
 
           <div id="needforscroll" style={{"height": "160px", "overflowX": "hidden", "overflowY": "scroll", "display": "none"}}>
-            <table width="670px" cellSpacing="1" cellPadding="2">
+            <table width="470px" cellSpacing="1" cellPadding="2">
               <tbody>
               <tr className="tableTitle">
                 <td colSpan="6">Orders Log</td>
@@ -217,11 +192,11 @@ export default class Chart extends React.Component {
             </table>
           </div>
 
-          <table width="690px" className="tablespacer">
+          <table width="490px" className="tablespacer">
             <tbody>
             <tr>
               <td className="tablebook">
-                <table width="340px" cellSpacing="1" cellPadding="1">
+                <table width="245px" cellSpacing="1" cellPadding="1">
                   <tbody>
                   <tr id="buyside" data-source="lightstreamer">
                     <td width="50%" style={{"textAlign": "right"}}>
@@ -235,7 +210,7 @@ export default class Chart extends React.Component {
                 </table>
               </td>
               <td className="tablebook">
-                <table width="340px" cellSpacing="1" cellPadding="1">
+                <table width="245px" cellSpacing="1" cellPadding="1">
                   <tbody>
                   <tr id="sellside" data-source="lightstreamer">
                     <td width="50%" style={{"textAlign": "center"}}>
@@ -251,7 +226,7 @@ export default class Chart extends React.Component {
             </tr>
             </tbody>
           </table>
-          <table width="690px" style={{"marginBottom": "150px"}}>
+          <table width="490px" style={{"marginBottom": "150px"}}>
             <tbody>
             <tr>
               <td>

@@ -14,6 +14,7 @@ export default class Card extends React.Component{
 
     componentDidMount() {
         let component = this;
+
         $.ajax({
             url: 'http://api.github.com/users/' + this.props.currency,
             dataType: 'json',
@@ -25,6 +26,9 @@ export default class Card extends React.Component{
     }
 
     render() {
+        let rand = Math.abs(Math.floor(Math.random() * (1 - 100 + 1)) + 1);
+        console.log(rand);
+
         return <div className="col-6 col-lg-4">
             <div className="thumbnail">
                 <img src={this.state.avatar_url} width="80"/>
@@ -35,10 +39,10 @@ export default class Card extends React.Component{
                     <div className='progress'>
                         <div className='progress-bar progress-bar-danger'
                              role='progressbar'
-                             aria-valuenow='70'
+                             aria-valuenow={rand}
                              aria-valuemin='0'
                              aria-valuemax='100'
-                             style={{width: '70%'}}>
+                             style={{width: `${rand}%`}}>
                             <span className='sr-only'>70% Complete</span>
                         </div>
                     </div>

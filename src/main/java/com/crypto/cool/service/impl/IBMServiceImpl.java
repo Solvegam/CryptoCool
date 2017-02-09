@@ -19,21 +19,21 @@ public class IBMServiceImpl implements IBMService {
 	private static final List<CardDto> MOCKED_DATA = new ArrayList<>();
 
 	static {
-		MOCKED_DATA.add(new CardDto("Bitcoin", BigDecimal.valueOf(981.22), "-7.85%"));
-		MOCKED_DATA.add(new CardDto("Ethereum", BigDecimal.valueOf(10.98), "-4.05%"));
-		MOCKED_DATA.add(new CardDto("Ripple", BigDecimal.valueOf(0.006284), "-2.87%"));
-		MOCKED_DATA.add(new CardDto("Litecoin", BigDecimal.valueOf(3.80), "-5.69%"));
-		MOCKED_DATA.add(new CardDto("Monero", BigDecimal.valueOf(12.17), "-5.30%"));
-		MOCKED_DATA.add(new CardDto("Dash", BigDecimal.valueOf(16.33), "-5.23%"));
-		MOCKED_DATA.add(new CardDto("NEM", BigDecimal.valueOf(0.006404), "-2.77%%"));
-		MOCKED_DATA.add(new CardDto("Augur", BigDecimal.valueOf(4.28), "-5.97%"));
-		MOCKED_DATA.add(new CardDto("Iconomi", BigDecimal.valueOf(0.439588), "-10.10%"));
-		MOCKED_DATA.add(new CardDto("Steem", BigDecimal.valueOf(0.144386), "-6.87%"));
-		MOCKED_DATA.add(new CardDto("Factom", BigDecimal.valueOf(3.40), "-8.48%"));
-		MOCKED_DATA.add(new CardDto("Tether", BigDecimal.valueOf(0.999999), "0.00%"));
-		MOCKED_DATA.add(new CardDto("Waves", BigDecimal.valueOf(0.242801), "-9.04%"));
-		MOCKED_DATA.add(new CardDto("Golem", BigDecimal.valueOf(0.027480), "11.94%"));
-		MOCKED_DATA.add(new CardDto("Golem", BigDecimal.valueOf(0.000205), "-2.42%"));
+		MOCKED_DATA.add(new CardDto("Bitcoin", BigDecimal.valueOf(981.22), "13"));
+		MOCKED_DATA.add(new CardDto("Ethereum", BigDecimal.valueOf(10.98), "23"));
+		MOCKED_DATA.add(new CardDto("Ripple", BigDecimal.valueOf(0.006284), "14"));
+		MOCKED_DATA.add(new CardDto("Litecoin", BigDecimal.valueOf(3.80), "24"));
+		MOCKED_DATA.add(new CardDto("Monero", BigDecimal.valueOf(12.17), "73"));
+		MOCKED_DATA.add(new CardDto("Dash", BigDecimal.valueOf(16.33), "12"));
+		MOCKED_DATA.add(new CardDto("NEM", BigDecimal.valueOf(0.006404), "64"));
+		MOCKED_DATA.add(new CardDto("Augur", BigDecimal.valueOf(4.28), "62"));
+		MOCKED_DATA.add(new CardDto("Iconomi", BigDecimal.valueOf(0.439588), "98"));
+		MOCKED_DATA.add(new CardDto("Steem", BigDecimal.valueOf(0.144386), "13"));
+		MOCKED_DATA.add(new CardDto("Factom", BigDecimal.valueOf(3.40), "43"));
+		MOCKED_DATA.add(new CardDto("Tether", BigDecimal.valueOf(0.999999), "12"));
+		MOCKED_DATA.add(new CardDto("Waves", BigDecimal.valueOf(0.242801), "12"));
+		MOCKED_DATA.add(new CardDto("Golem", BigDecimal.valueOf(0.027480), "93"));
+		MOCKED_DATA.add(new CardDto("Golem", BigDecimal.valueOf(0.000205), "34"));
 	}
 
 	@Override

@@ -31,19 +31,25 @@ export default class ContainerDiv extends React.Component{
     }
 
     render() {
+
         if ( this.state.selectedCurrency ){
             return <TradeWindow closeTradeWindow={this.closeTradeWindow}/>
         }
-        var self = this;
-        let cards = this.state.curencies.map(function (currency) {
-            return <Card key={currency} name={currency} onClick={self.selectCurrency} />
-        });
-        return <div className="container">
-            {/*<TradeWindow/>*/}
-            <div className="row row-offcanvas row-offcanvas-right">
-                <h3>Search by github name</h3>
-                <SearchForm addCard={this.addCard}/>
-                {cards}
+
+        let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} />);
+
+        return <div>
+            <div className="page-header">
+                <h1>Crypto Cool
+                    <small>  best trade and analytics platform</small>
+                </h1>
+            </div>
+            <div className="container">
+                <div className="row row-offcanvas row-offcanvas-right">
+                    <h3>Search by github name</h3>
+                    <SearchForm addCard={this.addCard}/>
+                    {cards}
+                </div>
             </div>
         </div>;
     }

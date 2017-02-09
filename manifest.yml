@@ -1,0 +1,10 @@
+applications:
+- path: output/webApp.war
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: CryptoCool
+  host: CryptoCool
+  disk_quota: 1024M
+  services:
+  - CryptoCool-personality_insights

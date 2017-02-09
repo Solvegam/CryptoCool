@@ -3,8 +3,12 @@ package com.crypto.cool.resources;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -14,14 +18,24 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 @Path("mainresource")
 public class MainResource {
 
+	@Autowired
+	private RandomChartService randomChartService;
+
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getIt(){
-		return "Got it!";
+		return "Test. Got it!";
 	}
 
 	@GET
-	@Path("watson-test")
+	@Path("/chart/{price}")
+	public Map<String, List<BigDecimal>> getRandomChartValues(
+			@PathParam("price") BigDecimal price){
+		return randomChartService.generate(price);
+	}
+
+	@GET
+	@Path("/watson-test")
 	@Produces(MediaType.APPLICATION_JSON)
 	public DocumentsResult watsonDo(){
 		AlchemyDataNews service = new AlchemyDataNews();

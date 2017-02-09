@@ -6,6 +6,6 @@ import java.util.Map;
 
 public interface RandomChartService {
 
-	Map<String, List<BigDecimal>> generate(final BigDecimal price);
+	List<Double> generate(final BigDecimal price);
 
 }

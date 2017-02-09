@@ -127,8 +127,8 @@ export default class Chart extends React.Component {
 
   render() {
     return <div>
-      <div id="wrap" style={{'float':'right'}}>
-        <div style={{'height' : "680px", "overflow" : "hidden"}}>
+      <div id="wrap">
+        <div style={{'height' : "456px", "overflow" : "hidden"}}>
           <form id="order-ins" className="tablespacer">
             <table className="inputPanel" width="490px" cellPadding="0" cellSpacing="0">
               <tbody>

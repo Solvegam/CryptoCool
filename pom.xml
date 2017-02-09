@@ -195,6 +195,13 @@
 			<version>3.5.3</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>${jersey.version}</version>
+		</dependency>
+
 	</dependencies>
 
 

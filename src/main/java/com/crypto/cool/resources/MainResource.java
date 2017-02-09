@@ -1,6 +1,7 @@
 package com.crypto.cool.resources;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,11 +39,13 @@ public class MainResource {
 
 	@GET
 	@Path("/chart/{price}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Map<String, List<BigDecimal>> getCardsValues(
-			@PathParam("price") BigDecimal price){
-
-		return  randomChartService.generate(price);
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getCardsValues(@PathParam("price") BigDecimal price) {
+		StringBuilder stringBuilder = new StringBuilder();
+		for (Double aDouble : randomChartService.generate(price)) {
+			stringBuilder.append(aDouble + "|");
+		}
+		return stringBuilder.toString();
 	}
 
 	@GET
@@ -62,7 +65,8 @@ public class MainResource {
 
 		Map<String, Object> params = new HashMap<>();
 
-		params.put(AlchemyDataNews.RETURN, "enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.enrichedTitle.entities,enriched.url.enrichedTitle.docSentiment");
+		params.put(AlchemyDataNews.RETURN,
+				"enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.enrichedTitle.entities,enriched.url.enrichedTitle.docSentiment");
 		params.put(AlchemyDataNews.START, "1440720000");
 		params.put(AlchemyDataNews.END, "1441407600");
 		params.put(AlchemyDataNews.COUNT, 7);
@@ -72,6 +76,5 @@ public class MainResource {
 		System.out.println(result);
 		return result;
 	}
-
 
 }

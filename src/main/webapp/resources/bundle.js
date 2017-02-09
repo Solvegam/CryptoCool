@@ -21673,7 +21673,6 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var component = this;
-
 	            _jquery2.default.ajax({
 	                url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
 	                dataType: 'json',
@@ -21697,7 +21696,6 @@
 	            var computeRiskClasslvl = function computeRiskClasslvl(rand) {
 	                if (rand < 40) return 'progress-bar progress-bar-success';else if (rand > 60) return 'progress-bar progress-bar-danger';else if (rand < 60 || rand > 40) return 'progress-bar progress-bar-warning';
 	            };
-	            console.log(computeRiskClasslvl);
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'col-6 col-lg-4' },
@@ -21746,9 +21744,13 @@
 	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'button',
-	                        { className: 'btn btn-primary', onClick: this.onClickHandler, role: 'button' },
-	                        'Trade'
+	                        'div',
+	                        { className: 'btn-group' },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { className: 'btn btn-primary', onClick: this.onClickHandler, role: 'button' },
+	                            '  Trade  '
+	                        )
 	                    )
 	                )
 	            );
@@ -32864,6 +32866,10 @@
 
 	var _MarketDepth2 = _interopRequireDefault(_MarketDepth);
 
+	var _Chart = __webpack_require__(188);
+
+	var _Chart2 = _interopRequireDefault(_Chart);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32902,7 +32908,20 @@
 	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
 	        ),
-	        _react2.default.createElement(_MarketDepth2.default, null)
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-xs-6' },
+	            _react2.default.createElement(_Chart2.default, null)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-xs-6' },
+	            _react2.default.createElement(_MarketDepth2.default, null)
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -33079,10 +33098,10 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'wrap', style: { 'float': 'right' } },
+	          { id: 'wrap' },
 	          _react2.default.createElement(
 	            'div',
-	            { style: { 'height': "680px", "overflow": "hidden" } },
+	            { style: { 'height': "456px", "overflow": "hidden" } },
 	            _react2.default.createElement(
 	              'form',
 	              { id: 'order-ins', className: 'tablespacer' },
@@ -33694,6 +33713,114 @@
 	module.exports = webpackContext;
 	webpackContext.id = 185;
 
+
+/***/ },
+/* 186 */,
+/* 187 */,
+/* 188 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _jquery = __webpack_require__(180);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Chart = function (_React$Component) {
+	  _inherits(Chart, _React$Component);
+
+	  function Chart(props) {
+	    _classCallCheck(this, Chart);
+
+	    return _possibleConstructorReturn(this, (Chart.__proto__ || Object.getPrototypeOf(Chart)).call(this, props));
+	  }
+
+	  _createClass(Chart, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var component = this;
+	      _jquery2.default.ajax({
+	        url: 'http://localhost:8080/webapi/mainresource/chart/1500',
+	        success: function success(data) {
+	          var values = data.split("|");
+	          var items = [];
+	          var now = new Date();
+	          for (var i = 0; i < values.length; i++) {
+	            now.setTime(now.getTime() + 1000);
+	            items.push({ x: now.getTime(), y: parseFloat(values[i]) });
+	          }
+
+	          var container = document.getElementById('visualization');
+	          var options = {
+	            start: new Date(),
+	            end: new Date(items[0].x + 10000),
+	            dataAxis: {
+	              left: {
+	                format: function format(value) {
+	                  return '' + value.toPrecision(7);
+	                }
+	              }
+	            }
+	          };
+	          var dataset = new vis.DataSet(items.slice(0, 2));
+	          var Graph2d = new vis.Graph2d(container, dataset, options);
+
+	          var index = 7;
+	          setInterval(function () {
+	            Graph2d.destroy();
+	            var end;
+	            if (items[index].x - items[0].x > 10000) {
+	              end = items[index].x;
+	            } else {
+	              end = new Date(items[0].x + 10000);
+	            }
+	            var options = {
+	              start: items[0].x,
+	              end: end,
+	              dataAxis: {
+	                left: {
+	                  format: function format(value) {
+	                    return '' + value.toPrecision(7);
+	                  }
+	                }
+	              }
+	            };
+	            var dataset = new vis.DataSet(items.slice(0, index));
+	            Graph2d = new vis.Graph2d(container, dataset, options);
+	            index++;
+	          }, 1000);
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', { id: 'visualization' });
+	    }
+	  }]);
+
+	  return Chart;
+	}(_react2.default.Component);
+
+	exports.default = Chart;
 
 /***/ }
 /******/ ]);

@@ -22,27 +22,31 @@ public class RandomChartServiceImpl implements RandomChartService {
 	private final static Random RANDOM = new Random();
 
 	@Override
-	public Map<String, List<BigDecimal>> generate(final BigDecimal price){
-		final Map<String, List<BigDecimal>> result = new HashMap<>();
-		final List<BigDecimal> resultList = new ArrayList<>();
+	public List<Double> generate(final BigDecimal price){
+		final Map<String, List<Double>> result = new HashMap<>();
+		final List<Double> resultList = new ArrayList<>();
 
 		for(int i = 0; i < MAX_VALUE; i++){
 			fillList(resultList, price);
 		}
-
-		result.put(KEY_CHART, resultList);
-		return result;
+		return resultList;
 	}
 
-	private void fillList(final List<BigDecimal> resultList, final BigDecimal price) {
-		final double maxOrMin = getMaxOrMin(price);
-
-		resultList.add(BigDecimal.valueOf(maxOrMin).setScale(2, ROUND_CEILING));
+	private void fillList(final List<Double> resultList, final BigDecimal price) {
+		BigDecimal priceToPass;
+		if ( resultList.size() == 0 ){
+			priceToPass = price;
+		}
+		else {
+			priceToPass = BigDecimal.valueOf(resultList.get(resultList.size()-1));
+		}
+		final double maxOrMin = getMaxOrMin(priceToPass);
+		resultList.add(maxOrMin);
 	}
 
 	private double getMaxOrMin(final BigDecimal price){
-		final double max = price.add(price.multiply(valueOf(Math.random() * 0.1))).doubleValue();
-		final double min = price.subtract(price.multiply(valueOf(Math.random() * 0.1))).doubleValue();
+		final double max = price.add(price.multiply(valueOf(Math.random() * 0.007))).doubleValue();
+		final double min = price.subtract(price.multiply(valueOf(Math.random() * 0.007))).doubleValue();
 
 		return RANDOM.nextBoolean() ? max : min;
 	}

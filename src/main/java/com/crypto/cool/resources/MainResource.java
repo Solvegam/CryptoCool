@@ -1,10 +1,9 @@
 package com.crypto.cool.resources;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,15 +13,20 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crypto.cool.core.RandomChartService;
+import com.crypto.cool.dto.CardDto;
+import com.crypto.cool.service.IBMService;
+import com.crypto.cool.service.RandomChartService;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 
-@Path("mainresource")
+@Path("/mainresource")
 public class MainResource {
 
 	@Autowired
 	private RandomChartService randomChartService;
+
+	@Autowired
+	private IBMService ibmService;
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -32,9 +36,17 @@ public class MainResource {
 
 	@GET
 	@Path("/chart/{price}")
-	public Map<String, List<BigDecimal>> getRandomChartValues(
+	@Produces(MediaType.APPLICATION_JSON)
+	public Map<String, List<BigDecimal>> getCardsValues(
 			@PathParam("price") BigDecimal price){
+
 		return randomChartService.generate(price);
+	}
+
+	@GET
+	@Path("/cards")
+	public List<CardDto> getCardsValues(){
+		return ibmService.getCardsValues();
 	}
 
 	@GET
@@ -44,7 +56,7 @@ public class MainResource {
 		AlchemyDataNews service = new AlchemyDataNews();
 		service.setApiKey("d816d0de9724e4f9d1588afaf56f601c9dfd0268");
 
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> params = new HashMap<>();
 
 		params.put(AlchemyDataNews.RETURN, "enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.enrichedTitle.entities,enriched.url.enrichedTitle.docSentiment");
 		params.put(AlchemyDataNews.START, "1440720000");

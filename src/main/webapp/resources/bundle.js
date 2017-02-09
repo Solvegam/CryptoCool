@@ -131,20 +131,36 @@
 	        value: function render() {
 	            var _this2 = this;
 
+	            var content = void 0;
 	            if (this.state.selectedCurrency) {
-	                return _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow });
+	                content = _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow })
+	                );
+	            } else {
+	                var cards = this.state.curencies.map(function (currency) {
+	                    return _react2.default.createElement(_Card2.default, { key: currency + 1, name: currency, onClick: _this2.selectCurrency });
+	                });
+	                content = _react2.default.createElement(
+	                    'div',
+	                    { className: 'row row-offcanvas row-offcanvas-right' },
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Search by github name'
+	                    ),
+	                    _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
+	                    cards
+	                );
 	            }
-
-	            var cards = this.state.curencies.map(function (currency) {
-	                return _react2.default.createElement(_Card2.default, { key: currency + 1, name: currency, onClick: _this2.selectCurrency });
-	            });
 
 	            return _react2.default.createElement(
 	                'div',
 	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'page-header' },
+	                    { className: 'page-header', style: { "textAlign": "center" } },
 	                    _react2.default.createElement(
 	                        'h1',
 	                        null,
@@ -159,17 +175,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'container' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'row row-offcanvas row-offcanvas-right' },
-	                        _react2.default.createElement(
-	                            'h3',
-	                            null,
-	                            'Search by github name'
-	                        ),
-	                        _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
-	                        cards
-	                    )
+	                    content
 	                )
 	            );
 	        }
@@ -21669,7 +21675,7 @@
 	            var component = this;
 
 	            _jquery2.default.ajax({
-	                url: 'http://api.github.com/users/' + this.props.currency,
+	                url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
 	                dataType: 'json',
 	                success: function success(data) {
 	                    console.log(data);
@@ -32890,8 +32896,10 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'div',
-	          { onClick: this.back },
+	          'button',
+	          { className: 'btn btn-primary', role: 'button', onClick: this.back },
+	          _react2.default.createElement('img', { src: 'http://codenamekash.com/aau/wnm617/midterm/image/back_button.png',
+	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
 	        ),
 	        _react2.default.createElement(_MarketDepth2.default, null)
@@ -33071,63 +33079,27 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { id: 'wrap' },
+	          { id: 'wrap', style: { 'float': 'right' } },
 	          _react2.default.createElement(
 	            'div',
-	            null,
+	            { style: { 'height': "680px", "overflow": "hidden" } },
 	            _react2.default.createElement(
 	              'form',
 	              { id: 'order-ins', className: 'tablespacer' },
 	              _react2.default.createElement(
 	                'table',
-	                { className: 'inputPanel', width: '690px', cellPadding: '0', cellSpacing: '0' },
+	                { className: 'inputPanel', width: '490px', cellPadding: '0', cellSpacing: '0' },
 	                _react2.default.createElement(
 	                  'tbody',
 	                  null,
 	                  _react2.default.createElement(
 	                    'tr',
-	                    { height: '35px' },
-	                    _react2.default.createElement(
-	                      'td',
-	                      { width: '230px' },
-	                      _react2.default.createElement('select', { id: 'stockN', width: '220px', type: 'select', className: 'inputelement' })
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
-	                      { width: '210px', style: { "textAlign": "center", "paddingLeft": "10px" } },
-	                      'Qty: ',
-	                      _react2.default.createElement('input', { id: 'qtyN', type: 'text', className: 'inputelement', size: '9' })
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
-	                      { width: '230px', style: { "textAlign": "right" } },
-	                      'Price: ',
-	                      _react2.default.createElement('input', { id: 'pxN', type: 'text', className: 'inputelement', size: '9' })
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'tr',
 	                    { className: 'inputPanel', height: '35px' },
-	                    _react2.default.createElement('td', { width: '230px' }),
 	                    _react2.default.createElement(
 	                      'td',
 	                      { width: '210px', style: { "textAlign": "center" } },
 	                      _react2.default.createElement('input', { type: 'submit', id: 'buy', className: 'buttonBuy', disabled: true, value: 'Buy' }),
 	                      _react2.default.createElement('input', { type: 'submit', id: 'sell', className: 'buttonSell', disabled: true, value: 'Sell' })
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
-	                      { width: '230px', style: { "textAlign": "right" } },
-	                      _react2.default.createElement('input', { type: 'submit', id: 'gridOpt',
-	                        style: {
-	                          "background": "#fff url('images/plus.gif') no-repeat center right",
-	                          "color": "#444",
-	                          "paddingRight": "16px",
-	                          "fontSize": "9pt",
-	                          "borderStyle": "none",
-	                          "borderRadius": "3px"
-	                        },
-	                        value: 'Show my orders ' })
 	                    )
 	                  )
 	                )
@@ -33138,7 +33110,7 @@
 	              { id: 'needforscroll', style: { "height": "160px", "overflowX": "hidden", "overflowY": "scroll", "display": "none" } },
 	              _react2.default.createElement(
 	                'table',
-	                { width: '670px', cellSpacing: '1', cellPadding: '2' },
+	                { width: '470px', cellSpacing: '1', cellPadding: '2' },
 	                _react2.default.createElement(
 	                  'tbody',
 	                  null,
@@ -33224,7 +33196,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'table',
-	              { width: '690px', className: 'tablespacer' },
+	              { width: '490px', className: 'tablespacer' },
 	              _react2.default.createElement(
 	                'tbody',
 	                null,
@@ -33236,7 +33208,7 @@
 	                    { className: 'tablebook' },
 	                    _react2.default.createElement(
 	                      'table',
-	                      { width: '340px', cellSpacing: '1', cellPadding: '1' },
+	                      { width: '245px', cellSpacing: '1', cellPadding: '1' },
 	                      _react2.default.createElement(
 	                        'tbody',
 	                        null,
@@ -33262,7 +33234,7 @@
 	                    { className: 'tablebook' },
 	                    _react2.default.createElement(
 	                      'table',
-	                      { width: '340px', cellSpacing: '1', cellPadding: '1' },
+	                      { width: '245px', cellSpacing: '1', cellPadding: '1' },
 	                      _react2.default.createElement(
 	                        'tbody',
 	                        null,
@@ -33288,7 +33260,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'table',
-	              { width: '690px', style: { "marginBottom": "150px" } },
+	              { width: '490px', style: { "marginBottom": "150px" } },
 	              _react2.default.createElement(
 	                'tbody',
 	                null,

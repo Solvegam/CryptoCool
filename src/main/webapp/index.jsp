@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="application/json" href="resources/node_modules/bootstrap/dist/css/bootstrap-theme.min.css.map">
     <link rel="stylesheet" type="text/css" href="resources/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="application/json" href="resources/node_modules/bootstrap/dist/css/bootstrap.css.map">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script src="lib/client.js"></script>
 </head>
 
 <body>

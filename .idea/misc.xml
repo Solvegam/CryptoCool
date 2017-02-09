@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="/softwares/maven" />
-        <option name="userSettingsFile" value="/softwares/maven/conf/settings.xml" />
-      </MavenGeneralSettings>
-    </option>
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="id" value="1485867993476" />
+    <option name="name" value="default" />
   </component>
+  <component name="IdProvider" IDEtalkID="5B1955A46403C17F379A667253946A13" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>

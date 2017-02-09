@@ -1,5 +1,6 @@
 package com.crypto.cool.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 
 public class CardDto {

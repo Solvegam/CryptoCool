@@ -49,7 +49,7 @@ export default class ContainerDiv extends React.Component{
         return <div>
             <div className="page-header" style={{"textAlign": "center"}}>
                 <h1>Crypto Cool
-                    <small>  best trade and analytics platform</small>
+                    <small>  by Swissquote powered by Watson</small>
                 </h1>
             </div>
             <div className="container">

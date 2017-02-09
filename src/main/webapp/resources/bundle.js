@@ -168,7 +168,7 @@
 	                        _react2.default.createElement(
 	                            'small',
 	                            null,
-	                            '  best trade and analytics platform'
+	                            '  by Swissquote powered by Watson'
 	                        )
 	                    )
 	                ),

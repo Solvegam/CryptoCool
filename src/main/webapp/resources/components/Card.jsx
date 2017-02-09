@@ -15,7 +15,6 @@ export default class Card extends React.Component{
 
     componentDidMount() {
         let component = this;
-
         $.ajax({
             url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
             dataType: 'json',
@@ -39,7 +38,6 @@ export default class Card extends React.Component{
             else if (rand>60) return 'progress-bar progress-bar-danger';
             else if (rand<60 || rand>40) return 'progress-bar progress-bar-warning';
         };
-        console.log(computeRiskClasslvl)
         return <div className="col-6 col-lg-4">
             <div className="thumbnail">
                 <img src={this.state.avatar_url} width="80"/>
@@ -58,7 +56,9 @@ export default class Card extends React.Component{
                         </div>
                     </div>
                 </div>
-                <button className="btn btn-primary" onClick={this.onClickHandler} role="button">Trade</button>
+                <div className="btn-group">
+                    <button className="btn btn-primary" onClick={this.onClickHandler} role="button">  Trade  </button>
+                </div>
             </div>
         </div>;
     }

@@ -21,7 +21,7 @@ export default class TradeWindow extends React.Component {
         Back
       </button>
       <div className="row">
-        <div className="col-xs-6"><Chart/></div>
+        <div className="col-xs-6"><Chart currency={this.props.currency}/></div>
         <div className="col-xs-6"><MarketDepth/></div>
       </div>
     </div>

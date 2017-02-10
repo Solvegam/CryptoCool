@@ -1,24 +1,20 @@
 package com.crypto.cool.resources;
 
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.crypto.cool.dto.CryptoCoin;
 import com.crypto.cool.service.CryptoCoins;
+import com.fasterxml.jackson.core.JsonGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.crypto.cool.dto.CardDto;
 import com.crypto.cool.service.IBMService;
 import com.crypto.cool.service.RandomChartService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -88,7 +84,8 @@ public class MainResource {
 	@Path("/coinmarker")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getAllCryptos() throws IOException {
-		return new ObjectMapper().writeValueAsString(cryptoCoins.getBestCoins());
+	    ObjectMapper mapper = new ObjectMapper().enable(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN);
+        return mapper.writeValueAsString(cryptoCoins.getBestCoins());
 	}
 
 }

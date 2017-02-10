@@ -11,7 +11,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Created by ivan on 2/10/17.
@@ -38,8 +42,15 @@ public class CryptoCoinsImpl implements CryptoCoins {
 
         List<CryptoCoin> result = mapper.readValue(response.toString(),
                 TypeFactory.defaultInstance().constructCollectionType(List.class, CryptoCoin.class));
-        return result;
+        return sortCoins(result);
     }
 
-
+    private List<CryptoCoin> sortCoins(List<CryptoCoin> allCoins) {
+        List<CryptoCoin> sortedList = allCoins.stream()
+                .filter(cryptoCoin -> cryptoCoin.getPercent_change_24h() != null)
+                .sorted(Comparator.comparing(CryptoCoin::getPercent_change_24h))
+                .collect(Collectors.toList());
+        Collections.reverse(sortedList);
+        return sortedList;
+    }
 }

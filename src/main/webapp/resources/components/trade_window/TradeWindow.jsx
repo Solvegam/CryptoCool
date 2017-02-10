@@ -15,14 +15,14 @@ export default class TradeWindow extends React.Component {
 
   render() {
     return <div>
-      <button className="btn btn-primary" role="button" onClick={this.back}>
+      <button className="btn btn-primary" role="button" onClick={this.back} style={{"marginBottom": "10px"}}>
         <img src="resources/images/back_button.png"
              style={{"width": "15px", "marginRight": "4px", "marginTop": "-3px"}}/>
         Back
       </button>
       <div className="row">
-        <div className="col-xs-6"><Chart price={this.props.price}/></div>
-        <div className="col-xs-6"><MarketDepth/></div>
+        <div className="col-xs-7"><Chart price={this.props.price}/></div>
+        <div className="col-xs-5"><MarketDepth/></div>
       </div>
     </div>
   }

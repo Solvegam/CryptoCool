@@ -6,7 +6,8 @@ export default class Card extends React.Component{
     super(props);
     this.state = {
       riskLvl: "NON-RISKY",
-      avatar_url: "http://photos.gograph.com/thumbs/CSP/CSP966/k9660009.jpg"
+      avatar_url: "http://capfeed.com/images/currencyicons/" + this.props.data.symbol.toLocaleLowerCase() + "-64.png",
+      avatar_default_url: "http://photos.gograph.com/thumbs/CSP/CSP966/k9660009.jpg"
     };
     this.onClickHandler =  this.onClickHandler.bind(this)
   }
@@ -14,21 +15,6 @@ export default class Card extends React.Component{
     onClickHandler(price){
       this.props.onClick(this.props.data.symbol, price);
     }
-
-
-  componentDidMount() {
-    let component = this;
-    $.ajax({
-      url: this.props.avatar_url,
-      success: function(data){
-        if(data === "true"){
-          let avatarName = component.props.data.symbol.toLocaleLowerCase();
-          component.setState({avatar_url: "http://capfeed.com/images/currencyicons/" + avatarName + "-64.png"});
-        }
-      }
-    });
-
-  }
 
   render() {
 
@@ -53,7 +39,7 @@ export default class Card extends React.Component{
                                   else if(data.available_supply) return Math.abs(100 - data.available_supply / data.total_supply * 100)};
       return <div className="col-6 col-lg-4">
         <div className="thumbnail">
-          <img src={this.state.avatar_url} width="80"/>
+          <img src={this.state.avatar_url} onError={(e)=>{e.target.src=this.state.avatar_default_url}} width="80"/>
           <div className="caption">
             <p><label>SYMBOL: </label> {data.symbol}</p>
             <p><label>NAME: </label> {data.name}</p>
@@ -73,7 +59,7 @@ export default class Card extends React.Component{
             </div>
           </div>
           <div className="btn-group">
-            <button className="btn btn-primary" onClick={this.onClickHandler} role="button">  Trade  </button>
+            <button className="btn btn-primary" onClick={() => this.onClickHandler(DIGIT_FORMATTER.format(data.price_usd + 1))} role="button">  Trade  </button>
           </div>
         </div>
       </div>;

@@ -17,8 +17,7 @@ import com.crypto.cool.service.RandomChartService;
 @Component
 public class RandomChartServiceImpl implements RandomChartService {
 
-	private final static int MAX_VALUE = 10000;
-	private final static String KEY_CHART = "chart";
+	private final static int MAX_VALUE = 1000;
 	private final static Random RANDOM = new Random();
 
 	@Override

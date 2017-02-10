@@ -167,7 +167,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'page-header', style: { "textAlign": "center" } },
+	          { className: 'page-header', style: { "textAlign": "center", "borderBottom": "4px solid #FF6633" } },
 	          _react2.default.createElement(
 	            'h1',
 	            null,
@@ -175,9 +175,18 @@
 	            _react2.default.createElement(
 	              'small',
 	              null,
-	              '  by Swissquote powered by Watson'
+	              ' by Swissquote powered by Watson'
 	            )
-	          )
+	          ),
+	          _react2.default.createElement('img', { alt: 'Swissquote - The Swiss Leader in Online Banking', title: 'Home',
+	            src: 'https://www.swissquote.ch/sqw-navigation/sq-css-theme-static/images/navigation/logo--swissquote.png',
+	            style: {
+	              "position": "absolute",
+	              "float": "left",
+	              "display": "absolute",
+	              "left": "25px",
+	              "top": "45px"
+	            } })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -32682,7 +32691,8 @@
 
 	    _this.state = {
 	      riskLvl: "NON-RISKY",
-	      avatar_url: "http://photos.gograph.com/thumbs/CSP/CSP966/k9660009.jpg"
+	      avatar_url: "http://capfeed.com/images/currencyicons/" + _this.props.data.symbol.toLocaleLowerCase() + "-64.png",
+	      avatar_default_url: "http://photos.gograph.com/thumbs/CSP/CSP966/k9660009.jpg"
 	    };
 	    _this.onClickHandler = _this.onClickHandler.bind(_this);
 	    return _this;
@@ -32692,20 +32702,6 @@
 	    key: 'onClickHandler',
 	    value: function onClickHandler(price) {
 	      this.props.onClick(this.props.data.symbol, price);
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var component = this;
-	      _jquery2.default.ajax({
-	        url: this.props.avatar_url,
-	        success: function success(data) {
-	          if (data === "true") {
-	            var avatarName = component.props.data.symbol.toLocaleLowerCase();
-	            component.setState({ avatar_url: "http://capfeed.com/images/currencyicons/" + avatarName + "-64.png" });
-	          }
-	        }
-	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -32724,7 +32720,6 @@
 	        if (tradeAdvice < 40) return 'High';else if (tradeAdvice > 60) return 'Low';else if (tradeAdvice < 60 || tradeAdvice > 40) return 'Medium';
 	      };
 	      var data = this.props.data;
-	      // var tradeAdvice = data.available_supply / data.total_supply * 100;
 	      var tradeAdvice = function tradeAdvice(data) {
 	        if (!data.available_supply) return 10;else if (Math.abs(100 - data.available_supply / data.total_supply * 100) === 0) return Math.random() * 20;else if (data.available_supply) return Math.abs(100 - data.available_supply / data.total_supply * 100);
 	      };
@@ -32734,7 +32729,9 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'thumbnail' },
-	          _react2.default.createElement('img', { src: this.state.avatar_url, width: '80' }),
+	          _react2.default.createElement('img', { src: this.state.avatar_url, onError: function onError(e) {
+	              e.target.src = _this2.state.avatar_default_url;
+	            }, width: '80' }),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'caption' },
@@ -32830,7 +32827,7 @@
 	            _react2.default.createElement(
 	              'button',
 	              { className: 'btn btn-primary', onClick: function onClick() {
-	                  return _this2.onClickHandler(DIGIT_FORMATTER.format(data.price_usd));
+	                  return _this2.onClickHandler(DIGIT_FORMATTER.format(data.price_usd + 1));
 	                }, role: 'button' },
 	              '  Trade  '
 	            )
@@ -32972,7 +32969,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'btn btn-primary', role: 'button', onClick: this.back },
+	          { className: 'btn btn-primary', role: 'button', onClick: this.back, style: { "marginBottom": "10px" } },
 	          _react2.default.createElement('img', { src: 'resources/images/back_button.png',
 	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
@@ -32982,12 +32979,12 @@
 	          { className: 'row' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-xs-6' },
+	            { className: 'col-xs-7' },
 	            _react2.default.createElement(_Chart2.default, { price: this.props.price })
 	          ),
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'col-xs-6' },
+	            { className: 'col-xs-5' },
 	            _react2.default.createElement(_MarketDepth2.default, null)
 	          )
 	        )
@@ -33827,7 +33824,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'webapi/mainresource/chart/' + this.props.price,
+	        url: 'webapi/mainresource/chart/' + component.props.price,
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

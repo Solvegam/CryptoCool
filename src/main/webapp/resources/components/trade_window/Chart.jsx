@@ -10,7 +10,7 @@ export default class Chart extends React.Component {
   componentDidMount() {
     let component = this;
     $.ajax({
-      url: 'webapi/mainresource/chart/' + component.props.currency,
+      url: 'webapi/mainresource/chart/' + component.props.price,
       success: function (data) {
         var values = data.split("|");
         var items = [];

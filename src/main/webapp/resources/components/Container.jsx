@@ -23,7 +23,7 @@ export default class ContainerDiv extends React.Component{
     $.ajax({
       url: 'webapi/mainresource/coinmarker',
       dataType: 'json',
-      success: function(data){
+      success: function (data) {
         console.log(data);
         component.setState({cardsData: data});
       }
@@ -44,7 +44,7 @@ export default class ContainerDiv extends React.Component{
     if ( this.state.selectedCurrency ){
       content = <div className="row"><TradeWindow price={this.state.price} closeTradeWindow={this.closeTradeWindow}/></div>
     }
-    else if (this.state.cardsData ) {
+    else if (this.state.cardsData) {
       let cards = this.state.cardsData.map((data) => {
         let avatarName = data.symbol.toLocaleLowerCase();
         let avatar_url = "/webapi/mainresource/getImageForCoin/" + avatarName;
@@ -56,15 +56,24 @@ export default class ContainerDiv extends React.Component{
     }
 
     return <div>
-        <div className="page-header" style={{"textAlign": "center"}}>
-            <h1>Crypto Cool
-                <small>  by Swissquote powered by Watson</small>
-            </h1>
-        </div>
-        <div className="container">
-          {content}
-        </div>
-    </div>;
+      <div className="page-header" style={{"textAlign": "center", "borderBottom": "4px solid #FF6633"}}>
+        <h1>Crypto Cool
+          <small> by Swissquote powered by Watson</small>
+        </h1>
+        <img alt="Swissquote - The Swiss Leader in Online Banking" title="Home"
+             src="https://www.swissquote.ch/sqw-navigation/sq-css-theme-static/images/navigation/logo--swissquote.png"
+             style={{
+               "position": "absolute",
+               "float": "left",
+               "display": "absolute",
+               "left": "25px",
+               "top": "45px"
+             }}/>
+      </div>
+      <div className="container">
+        {content}
+      </div>
+    </div>
   }
 }
 

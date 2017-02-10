@@ -11,7 +11,8 @@ export default class ContainerDiv extends React.Component{
     super(props);
     this.state = {
       curencies: [],
-      selectedCurrency: null
+      selectedCurrency: null,
+      price: null
     };
     this.selectCurrency = this.selectCurrency.bind(this);
     this.closeTradeWindow = this.closeTradeWindow.bind(this);
@@ -33,15 +34,15 @@ export default class ContainerDiv extends React.Component{
     this.setState({selectedCurrency: null});
   }
 
-  selectCurrency(name){
-    this.setState({selectedCurrency: name});
+  selectCurrency(name, price){
+    this.setState({selectedCurrency: name, price: price});
   }
 
   render() {
 
     let content = null;
     if ( this.state.selectedCurrency ){
-      content = <div className="row"><TradeWindow closeTradeWindow={this.closeTradeWindow}/></div>
+      content = <div className="row"><TradeWindow price={this.state.price} closeTradeWindow={this.closeTradeWindow}/></div>
     }
     else if (this.state.cardsData ) {
       let cards = this.state.cardsData.map((data) => {

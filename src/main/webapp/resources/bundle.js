@@ -106,7 +106,8 @@
 
 	    _this.state = {
 	      curencies: [],
-	      selectedCurrency: null
+	      selectedCurrency: null,
+	      price: null
 	    };
 	    _this.selectCurrency = _this.selectCurrency.bind(_this);
 	    _this.closeTradeWindow = _this.closeTradeWindow.bind(_this);
@@ -133,8 +134,8 @@
 	    }
 	  }, {
 	    key: 'selectCurrency',
-	    value: function selectCurrency(name) {
-	      this.setState({ selectedCurrency: name });
+	    value: function selectCurrency(name, price) {
+	      this.setState({ selectedCurrency: name, price: price });
 	    }
 	  }, {
 	    key: 'render',
@@ -146,7 +147,7 @@
 	        content = _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow })
+	          _react2.default.createElement(_TradeWindow2.default, { price: this.state.price, closeTradeWindow: this.closeTradeWindow })
 	        );
 	      } else if (this.state.cardsData) {
 	        var cards = this.state.cardsData.map(function (data) {
@@ -32689,8 +32690,8 @@
 
 	  _createClass(Card, [{
 	    key: 'onClickHandler',
-	    value: function onClickHandler() {
-	      this.props.onClick(this.props.data.symbol);
+	    value: function onClickHandler(price) {
+	      this.props.onClick(this.props.data.symbol, price);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -32709,6 +32710,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
 
 	      var DIGIT_FORMATTER = new Intl.NumberFormat("de-CH", {
 	        minimumFractionDigits: 5,
@@ -32722,7 +32724,10 @@
 	        if (tradeAdvice < 40) return 'High';else if (tradeAdvice > 60) return 'Low';else if (tradeAdvice < 60 || tradeAdvice > 40) return 'Medium';
 	      };
 	      var data = this.props.data;
-	      var tradeAdvice = data.available_supply / data.total_supply * 100;
+	      // var tradeAdvice = data.available_supply / data.total_supply * 100;
+	      var tradeAdvice = function tradeAdvice(data) {
+	        if (!data.available_supply) return 10;else if (Math.abs(100 - data.available_supply / data.total_supply * 100) === 0) return Math.random() * 20;else if (data.available_supply) return Math.abs(100 - data.available_supply / data.total_supply * 100);
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-6 col-lg-4' },
@@ -32739,7 +32744,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'SYMBOL'
+	                'SYMBOL: '
 	              ),
 	              ' ',
 	              data.symbol
@@ -32750,7 +32755,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'NAME'
+	                'NAME: '
 	              ),
 	              ' ',
 	              data.name
@@ -32761,7 +32766,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PRICE USD'
+	                'PRICE USD: '
 	              ),
 	              ' ',
 	              DIGIT_FORMATTER.format(data.price_usd)
@@ -32772,7 +32777,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PAIR/BTC'
+	                'CROSS COIN: '
 	              ),
 	              ' ',
 	              data.symbol + '/' + 'BTC'
@@ -32783,7 +32788,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PRICE BTC'
+	                'PRICE BTC: '
 	              ),
 	              ' ',
 	              DIGIT_FORMATTER.format(data.price_btc)
@@ -32794,20 +32799,29 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'RISK LVL'
+	                'RISK LEVEL: '
 	              ),
 	              ' ',
-	              getRiskLabel(tradeAdvice)
+	              getRiskLabel(tradeAdvice(data))
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'STABILITY LEVEL: '
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'progress' },
-	              _react2.default.createElement('div', { className: computeRiskClasslvl(tradeAdvice),
+	              _react2.default.createElement('div', { className: computeRiskClasslvl(tradeAdvice(data)),
 	                role: 'progressbar',
-	                'aria-valuenow': tradeAdvice,
+	                'aria-valuenow': tradeAdvice(data),
 	                'aria-valuemin': '0',
 	                'aria-valuemax': '100',
-	                style: { width: tradeAdvice + '%' } })
+	                style: { width: tradeAdvice(data) + '%' } })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -32815,7 +32829,9 @@
 	            { className: 'btn-group' },
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-primary', onClick: this.onClickHandler, role: 'button' },
+	              { className: 'btn btn-primary', onClick: function onClick() {
+	                  return _this2.onClickHandler(DIGIT_FORMATTER.format(data.price_usd));
+	                }, role: 'button' },
 	              '  Trade  '
 	            )
 	          )
@@ -32967,7 +32983,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-xs-6' },
-	            _react2.default.createElement(_Chart2.default, null)
+	            _react2.default.createElement(_Chart2.default, { price: this.props.price })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -33811,7 +33827,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'webapi/mainresource/chart/1500',
+	        url: 'webapi/mainresource/chart/' + this.props.price,
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

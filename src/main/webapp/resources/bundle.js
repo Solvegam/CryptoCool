@@ -32724,7 +32724,10 @@
 	        if (tradeAdvice < 40) return 'High';else if (tradeAdvice > 60) return 'Low';else if (tradeAdvice < 60 || tradeAdvice > 40) return 'Medium';
 	      };
 	      var data = this.props.data;
-	      var tradeAdvice = data.available_supply / data.total_supply * 100;
+	      // var tradeAdvice = data.available_supply / data.total_supply * 100;
+	      var tradeAdvice = function tradeAdvice(data) {
+	        if (!data.available_supply) return 10;else if (Math.abs(100 - data.available_supply / data.total_supply * 100) === 0) return Math.random() * 20;else if (data.available_supply) return Math.abs(100 - data.available_supply / data.total_supply * 100);
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'col-6 col-lg-4' },
@@ -32741,7 +32744,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'SYMBOL'
+	                'SYMBOL: '
 	              ),
 	              ' ',
 	              data.symbol
@@ -32752,7 +32755,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'NAME'
+	                'NAME: '
 	              ),
 	              ' ',
 	              data.name
@@ -32763,7 +32766,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PRICE USD'
+	                'PRICE USD: '
 	              ),
 	              ' ',
 	              DIGIT_FORMATTER.format(data.price_usd)
@@ -32774,7 +32777,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PAIR/BTC'
+	                'CROSS COIN: '
 	              ),
 	              ' ',
 	              data.symbol + '/' + 'BTC'
@@ -32785,7 +32788,7 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'PRICE BTC'
+	                'PRICE BTC: '
 	              ),
 	              ' ',
 	              DIGIT_FORMATTER.format(data.price_btc)
@@ -32796,20 +32799,29 @@
 	              _react2.default.createElement(
 	                'label',
 	                null,
-	                'RISK LVL'
+	                'RISK LEVEL: '
 	              ),
 	              ' ',
-	              getRiskLabel(tradeAdvice)
+	              getRiskLabel(tradeAdvice(data))
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              _react2.default.createElement(
+	                'label',
+	                null,
+	                'STABILITY LEVEL: '
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              { className: 'progress' },
-	              _react2.default.createElement('div', { className: computeRiskClasslvl(tradeAdvice),
+	              _react2.default.createElement('div', { className: computeRiskClasslvl(tradeAdvice(data)),
 	                role: 'progressbar',
-	                'aria-valuenow': tradeAdvice,
+	                'aria-valuenow': tradeAdvice(data),
 	                'aria-valuemin': '0',
 	                'aria-valuemax': '100',
-	                style: { width: tradeAdvice + '%' } })
+	                style: { width: tradeAdvice(data) + '%' } })
 	            )
 	          ),
 	          _react2.default.createElement(

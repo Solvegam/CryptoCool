@@ -1,22 +1,20 @@
 package com.crypto.cool.service.impl;
 
-import com.crypto.cool.dto.CryptoCoin;
-import com.crypto.cool.service.CryptoCoins;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
-
-import org.springframework.stereotype.Component;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
+import com.crypto.cool.dto.CryptoCoin;
+import com.crypto.cool.service.CryptoCoins;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * Created by ivan on 2/10/17.

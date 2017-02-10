@@ -59,7 +59,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -72,7 +72,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Card = __webpack_require__(179);
+	var _jquery = __webpack_require__(179);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _Card = __webpack_require__(180);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -93,95 +97,136 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var ContainerDiv = function (_React$Component) {
-	    _inherits(ContainerDiv, _React$Component);
+	  _inherits(ContainerDiv, _React$Component);
 
-	    function ContainerDiv(props) {
-	        _classCallCheck(this, ContainerDiv);
+	  function ContainerDiv(props) {
+	    _classCallCheck(this, ContainerDiv);
 
-	        var _this = _possibleConstructorReturn(this, (ContainerDiv.__proto__ || Object.getPrototypeOf(ContainerDiv)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (ContainerDiv.__proto__ || Object.getPrototypeOf(ContainerDiv)).call(this, props));
 
-	        _this.addCard = _this.addCard.bind(_this);
-	        _this.state = {
-	            curencies: [],
-	            selectedCurrency: null
-	        };
-	        _this.selectCurrency = _this.selectCurrency.bind(_this);
-	        _this.closeTradeWindow = _this.closeTradeWindow.bind(_this);
-	        return _this;
+	    _this.addCard = _this.addCard.bind(_this);
+	    _this.state = {
+	      curencies: [],
+	      selectedCurrency: null,
+	      cards: []
+	    };
+	    _this.selectCurrency = _this.selectCurrency.bind(_this);
+	    _this.closeTradeWindow = _this.closeTradeWindow.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(ContainerDiv, [{
+	    key: 'addCard',
+	    value: function addCard(currency) {
+	      var component = this;
+	      this.setState({ curencies: component.state.curencies.concat(currency) });
 	    }
+	  }, {
+	    key: 'closeTradeWindow',
+	    value: function closeTradeWindow() {
+	      this.setState({ selectedCurrency: null });
+	    }
+	  }, {
+	    key: 'selectCurrency',
+	    value: function selectCurrency(name) {
+	      this.setState({ selectedCurrency: name });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var component = this;
+	      _jquery2.default.ajax({
+	        url: '/webapi/mainresource/coinmarker',
+	        dataType: 'json',
+	        success: function success(data) {
+	          console.log(data);
+	          var newCards = [];
+	          data.forEach(function (cardData) {
+	            var avatarName = cardData.symbol.toLocaleLowerCase();
+	            // let avatar_url = "https://coinmarketcap.com/static/img/coins/16x16/" + avatarName + ".png";
+	            // let avatar_url_2 = "http://www.coinwarz.com/charts/difficulty-charts/content/images/" + avatarName + "-64x64.png";
+	            var avatar_url_3 = "http://capfeed.com/images/currencyicons/" + avatarName + "-64.png";
 
-	    _createClass(ContainerDiv, [{
-	        key: 'addCard',
-	        value: function addCard(currency) {
-	            var component = this;
-	            this.setState({ curencies: component.state.curencies.concat(currency) });
-	        }
-	    }, {
-	        key: 'closeTradeWindow',
-	        value: function closeTradeWindow() {
-	            this.setState({ selectedCurrency: null });
-	        }
-	    }, {
-	        key: 'selectCurrency',
-	        value: function selectCurrency(name) {
-	            this.setState({ selectedCurrency: name });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
+	            newCards.push({
+	              name: cardData.name,
+	              symbol: cardData.symbol,
+	              rank: cardData.rank,
+	              price_usd: cardData.price_usd,
+	              price_btc: cardData.price_btc,
+	              avatar_url: avatar_url_3
+	            });
+	          });
 
-	            var content = void 0;
-	            if (this.state.selectedCurrency) {
-	                content = _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow })
-	                );
-	            } else {
-	                var cards = this.state.curencies.map(function (currency) {
-	                    return _react2.default.createElement(_Card2.default, { key: currency + 1, name: currency, onClick: _this2.selectCurrency });
-	                });
-	                content = _react2.default.createElement(
-	                    'div',
-	                    { className: 'row row-offcanvas row-offcanvas-right' },
-	                    _react2.default.createElement(
-	                        'h3',
-	                        null,
-	                        'Search by github name'
-	                    ),
-	                    _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
-	                    cards
-	                );
-	            }
-
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'page-header', style: { "textAlign": "center" } },
-	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
-	                        'Crypto Cool',
-	                        _react2.default.createElement(
-	                            'small',
-	                            null,
-	                            '  by Swissquote powered by Watson'
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'container' },
-	                    content
-	                )
-	            );
+	          component.setState({ cards: newCards });
 	        }
-	    }]);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
 
-	    return ContainerDiv;
+	      var content = void 0;
+	      if (this.state.selectedCurrency) {
+	        content = _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow })
+	        );
+	      } else {
+	        {/*let cards = this.state.curencies.map((currency) => <Card key={currency+1} name={currency} onClick={this.selectCurrency} />);*/}
+	        var cards = this.state.cards.map(function (card) {
+	          return _react2.default.createElement(_Card2.default, {
+	            key: card.symbol + 1,
+	            name: card.name,
+	            symbol: card.symbol,
+	            rank: card.rank,
+	            price_usd: card.price_usd,
+	            price_btc: card.price_btc,
+	            avatar_url: card.avatar_url,
+	            onClick: _this2.selectCurrency });
+	        });
+
+	        content = _react2.default.createElement(
+	          'div',
+	          { className: 'row row-offcanvas row-offcanvas-right' },
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            'Search by github name'
+	          ),
+	          _react2.default.createElement(_SearchForm2.default, { addCard: this.addCard }),
+	          cards
+	        );
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'page-header', style: { "textAlign": "center" } },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Crypto Cool',
+	            _react2.default.createElement(
+	              'small',
+	              null,
+	              '  by Swissquote powered by Watson'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'container' },
+	          content
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ContainerDiv;
 	}(_react2.default.Component);
 
 	exports.default = ContainerDiv;
@@ -21627,165 +21672,6 @@
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _jquery = __webpack_require__(180);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Card = function (_React$Component) {
-	    _inherits(Card, _React$Component);
-
-	    function Card(props) {
-	        _classCallCheck(this, Card);
-
-	        var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
-
-	        _this.state = {
-	            symbol: "BTC",
-	            price_usd: "1000 USD",
-	            pair: "BTC/LTC",
-	            price_btc: "1000 USD",
-	            riskLvl: "NON-RISKY",
-	            avatar_url: "http://bitcoin.org/img/icons/opengraph.png"
-	        };
-	        _this.onClickHandler = _this.onClickHandler.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(Card, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var component = this;
-	            _jquery2.default.ajax({
-	                url: 'webapi/mainresource/coinmarker',
-	                dataType: 'json',
-	                success: function success(data) {
-	                    console.log(data);
-	                    component.setState(data);
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'onClickHandler',
-	        value: function onClickHandler() {
-	            this.props.onClick(this.state.symbol);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-
-	            var rand = Math.abs(Math.floor(Math.random() * (1 - 100 + 1)) + 1);
-	            console.log(rand);
-	            var computeRiskClasslvl = function computeRiskClasslvl(rand) {
-	                if (rand < 40) return 'progress-bar progress-bar-success';else if (rand > 60) return 'progress-bar progress-bar-danger';else if (rand < 60 || rand > 40) return 'progress-bar progress-bar-warning';
-	            };
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'col-6 col-lg-4' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'thumbnail' },
-	                    _react2.default.createElement('img', { src: this.state.avatar_url, width: '80' }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'caption' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'SYMBOL ',
-	                            this.state.symbol
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'NAME ',
-	                            this.state.name
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'PRICE USD ',
-	                            this.state.price_usd
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'PAIR/BTC ',
-	                            this.state.symbol + '/' + 'BTC'
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'PRICE BTC ',
-	                            this.state.price_btc
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            'RISK LVL ',
-	                            this.state.riskLvl
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'progress' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: computeRiskClasslvl(rand),
-	                                    role: 'progressbar',
-	                                    'aria-valuenow': rand,
-	                                    'aria-valuemin': '0',
-	                                    'aria-valuemax': '100',
-	                                    style: { width: rand + '%' } },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'sr-only' },
-	                                    '70% Complete'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'btn-group' },
-	                        _react2.default.createElement(
-	                            'button',
-	                            { className: 'btn btn-primary', onClick: this.onClickHandler, role: 'button' },
-	                            '  Trade  '
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Card;
-	}(_react2.default.Component);
-
-	exports.default = Card;
-
-/***/ },
-/* 180 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 	 * jQuery JavaScript Library v1.12.4
 	 * http://jquery.com/
@@ -32797,6 +32683,148 @@
 
 
 /***/ },
+/* 180 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Card = function (_React$Component) {
+	  _inherits(Card, _React$Component);
+
+	  function Card(props) {
+	    _classCallCheck(this, Card);
+
+	    var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
+
+	    _this.state = {
+	      name: "",
+	      symbol: "",
+	      rank: 0,
+	      price_usd: 0,
+	      price_btc: 0,
+	      avatar_url: ""
+	    };
+	    _this.onClickHandler = _this.onClickHandler.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Card, [{
+	    key: "onClickHandler",
+	    value: function onClickHandler() {
+	      this.props.onClick(this.state.symbol);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+
+	      var rand = Math.abs(Math.floor(Math.random() * (1 - 100 + 1)) + 1);
+	      console.log(rand);
+	      var computeRiskClasslvl = function computeRiskClasslvl(rand) {
+	        if (rand < 40) return 'progress-bar progress-bar-success';else if (rand > 60) return 'progress-bar progress-bar-danger';else if (rand < 60 || rand > 40) return 'progress-bar progress-bar-warning';
+	      };
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "col-6 col-lg-4" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "thumbnail" },
+	          _react2.default.createElement("img", { src: this.props.avatar_url, width: "80" }),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "caption" },
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "SYMBOL ",
+	              this.props.symbol
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "NAME ",
+	              this.props.name
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "PRICE USD ",
+	              this.props.price_usd
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "PAIR/BTC ",
+	              this.props.symbol + '/' + 'BTC'
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "PRICE BTC ",
+	              this.props.price_btc
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "RISK LVL ",
+	              this.props.rank
+	            ),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "progress" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: computeRiskClasslvl(this.props.rank),
+	                  role: "progressbar",
+	                  "aria-valuenow": this.props.rank,
+	                  "aria-valuemin": "0",
+	                  "aria-valuemax": "100",
+	                  style: { width: this.props.rank + "%" } },
+	                _react2.default.createElement(
+	                  "span",
+	                  { className: "sr-only" },
+	                  "70% Complete"
+	                )
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "btn-group" },
+	            _react2.default.createElement(
+	              "button",
+	              { className: "btn btn-primary", onClick: this.onClickHandler, role: "button" },
+	              "  Trade  "
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Card;
+	}(_react2.default.Component);
+
+	exports.default = Card;
+
+/***/ },
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -32924,7 +32952,7 @@
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-primary', role: 'button', onClick: this.back },
-	          _react2.default.createElement('img', { src: 'http://codenamekash.com/aau/wnm617/midterm/image/back_button.png',
+	          _react2.default.createElement('img', { src: 'resources/images/back_button.png',
 	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
 	        ),
@@ -32967,7 +32995,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jquery = __webpack_require__(180);
+	var _jquery = __webpack_require__(179);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -33752,7 +33780,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _jquery = __webpack_require__(180);
+	var _jquery = __webpack_require__(179);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -33778,7 +33806,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'http://localhost:8080/webapi/mainresource/chart/1500',
+	        url: 'webapi/mainresource/chart/1500',
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

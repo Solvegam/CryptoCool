@@ -21,6 +21,7 @@ public class CryptoCoin {
     private BigDecimal percent_change_1h;
     private BigDecimal percent_change_24h;
     private BigDecimal percent_change_7d;
+    private BigDecimal calculatedRisk;
     private long last_updated;
 
     public CryptoCoin() {

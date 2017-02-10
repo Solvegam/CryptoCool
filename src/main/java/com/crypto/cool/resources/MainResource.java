@@ -1,7 +1,7 @@
 package com.crypto.cool.resources;
 
+import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +14,8 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.crypto.cool.dto.CryptoCoin;
+import com.crypto.cool.service.CryptoCoins;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.crypto.cool.dto.CardDto;
@@ -30,6 +32,9 @@ public class MainResource {
 
 	@Autowired
 	private IBMService ibmService;
+
+	@Autowired
+	private CryptoCoins cryptoCoins;
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -75,6 +80,14 @@ public class MainResource {
 
 		System.out.println(result);
 		return result;
+	}
+
+
+	@GET
+	@Path("/coinmarker")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<CryptoCoin> getAllCryptos() throws IOException {
+		return cryptoCoins.getBestCoins();
 	}
 
 }

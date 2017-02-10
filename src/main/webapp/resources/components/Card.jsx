@@ -11,9 +11,9 @@ export default class Card extends React.Component{
     this.onClickHandler =  this.onClickHandler.bind(this)
   }
 
-  onClickHandler(){
-    this.props.onClick(this.props.data.symbol);
-  }
+    onClickHandler(price){
+      this.props.onClick(this.props.data.symbol, price);
+    }
 
 
   componentDidMount() {
@@ -70,7 +70,7 @@ export default class Card extends React.Component{
           </div>
         </div>
         <div className="btn-group">
-          <button className="btn btn-primary" onClick={this.onClickHandler} role="button">  Trade  </button>
+          <button className="btn btn-primary" onClick={() => this.onClickHandler(DIGIT_FORMATTER.format(data.price_usd))} role="button">  Trade  </button>
         </div>
       </div>
     </div>;

@@ -106,7 +106,8 @@
 
 	    _this.state = {
 	      curencies: [],
-	      selectedCurrency: null
+	      selectedCurrency: null,
+	      price: null
 	    };
 	    _this.selectCurrency = _this.selectCurrency.bind(_this);
 	    _this.closeTradeWindow = _this.closeTradeWindow.bind(_this);
@@ -133,8 +134,8 @@
 	    }
 	  }, {
 	    key: 'selectCurrency',
-	    value: function selectCurrency(name) {
-	      this.setState({ selectedCurrency: name });
+	    value: function selectCurrency(name, price) {
+	      this.setState({ selectedCurrency: name, price: price });
 	    }
 	  }, {
 	    key: 'render',
@@ -146,7 +147,7 @@
 	        content = _react2.default.createElement(
 	          'div',
 	          { className: 'row' },
-	          _react2.default.createElement(_TradeWindow2.default, { closeTradeWindow: this.closeTradeWindow })
+	          _react2.default.createElement(_TradeWindow2.default, { price: this.state.price, closeTradeWindow: this.closeTradeWindow })
 	        );
 	      } else if (this.state.cardsData) {
 	        var cards = this.state.cardsData.map(function (data) {
@@ -32689,8 +32690,8 @@
 
 	  _createClass(Card, [{
 	    key: 'onClickHandler',
-	    value: function onClickHandler() {
-	      this.props.onClick(this.props.data.symbol);
+	    value: function onClickHandler(price) {
+	      this.props.onClick(this.props.data.symbol, price);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -32709,6 +32710,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
 
 	      var DIGIT_FORMATTER = new Intl.NumberFormat("de-CH", {
 	        minimumFractionDigits: 5,
@@ -32815,7 +32817,9 @@
 	            { className: 'btn-group' },
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'btn btn-primary', onClick: this.onClickHandler, role: 'button' },
+	              { className: 'btn btn-primary', onClick: function onClick() {
+	                  return _this2.onClickHandler(DIGIT_FORMATTER.format(data.price_usd));
+	                }, role: 'button' },
 	              '  Trade  '
 	            )
 	          )
@@ -32967,7 +32971,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-xs-6' },
-	            _react2.default.createElement(_Chart2.default, null)
+	            _react2.default.createElement(_Chart2.default, { price: this.props.price })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -33811,7 +33815,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'webapi/mainresource/chart/1500',
+	        url: 'webapi/mainresource/chart/' + this.props.price,
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

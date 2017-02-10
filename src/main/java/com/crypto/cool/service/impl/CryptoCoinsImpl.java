@@ -40,4 +40,6 @@ public class CryptoCoinsImpl implements CryptoCoins {
                 TypeFactory.defaultInstance().constructCollectionType(List.class, CryptoCoin.class));
         return result;
     }
+
+
 }

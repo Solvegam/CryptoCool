@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.crypto.cool.dto.CardDto;
 import com.crypto.cool.service.IBMService;
 import com.crypto.cool.service.RandomChartService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 
@@ -55,10 +57,9 @@ public class MainResource {
 
 	@GET
 	@Path("/cards")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response getCardsValues(){
-		final List<CardDto> myList = ibmService.getCardsValues();
-		return Response.ok().entity(new GenericEntity<List<CardDto>>(myList) {}).build();
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getCardsValues() throws JsonProcessingException {
+		return new ObjectMapper().writeValueAsString(ibmService.getCardsValues());
 	}
 
 	@GET
@@ -85,9 +86,9 @@ public class MainResource {
 
 	@GET
 	@Path("/coinmarker")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<CryptoCoin> getAllCryptos() throws IOException {
-		return cryptoCoins.getBestCoins();
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getAllCryptos() throws IOException {
+		return new ObjectMapper().writeValueAsString(cryptoCoins.getBestCoins());
 	}
 
 }

@@ -21674,7 +21674,7 @@
 	        value: function componentDidMount() {
 	            var component = this;
 	            _jquery2.default.ajax({
-	                url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
+	                url: 'webapi/mainresource/cards',
 	                dataType: 'json',
 	                success: function success(data) {
 	                    console.log(data);
@@ -32904,7 +32904,7 @@
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-primary', role: 'button', onClick: this.back },
-	          _react2.default.createElement('img', { src: 'http://codenamekash.com/aau/wnm617/midterm/image/back_button.png',
+	          _react2.default.createElement('img', { src: 'resources/images/back_button.png',
 	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
 	        ),
@@ -33758,7 +33758,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'http://localhost:8080/webapi/mainresource/chart/1500',
+	        url: 'webapi/mainresource/chart/1500',
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

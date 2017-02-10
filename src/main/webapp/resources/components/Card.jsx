@@ -16,7 +16,7 @@ export default class Card extends React.Component{
     componentDidMount() {
         let component = this;
         $.ajax({
-            url: 'http://cryptocool.mybluemix.net/webapi/mainresource/cards',
+            url: 'webapi/mainresource/cards',
             dataType: 'json',
             success: function(data){
                 console.log(data);

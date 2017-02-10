@@ -21660,8 +21660,10 @@
 	        var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
 
 	        _this.state = {
-	            currency: "BTC",
-	            price: "1000 USD",
+	            symbol: "BTC",
+	            price_usd: "1000 USD",
+	            pair: "BTC/LTC",
+	            price_btc: "1000 USD",
 	            riskLvl: "NON-RISKY",
 	            avatar_url: "http://bitcoin.org/img/icons/opengraph.png"
 	        };
@@ -21674,7 +21676,7 @@
 	        value: function componentDidMount() {
 	            var component = this;
 	            _jquery2.default.ajax({
-	                url: 'webapi/mainresource/cards',
+	                url: 'webapi/mainresource/coinmarker',
 	                dataType: 'json',
 	                success: function success(data) {
 	                    console.log(data);
@@ -21685,7 +21687,7 @@
 	    }, {
 	        key: 'onClickHandler',
 	        value: function onClickHandler() {
-	            this.props.onClick(this.state.currency);
+	            this.props.onClick(this.state.symbol);
 	        }
 	    }, {
 	        key: 'render',
@@ -21710,13 +21712,31 @@
 	                            'p',
 	                            null,
 	                            'SYMBOL ',
-	                            this.state.currency
+	                            this.state.symbol
 	                        ),
 	                        _react2.default.createElement(
 	                            'p',
 	                            null,
-	                            'PRICE ',
-	                            this.state.price
+	                            'NAME ',
+	                            this.state.name
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'PRICE USD ',
+	                            this.state.price_usd
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'PAIR/BTC ',
+	                            this.state.symbol + '/' + 'BTC'
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            null,
+	                            'PRICE BTC ',
+	                            this.state.price_btc
 	                        ),
 	                        _react2.default.createElement(
 	                            'p',
@@ -32904,7 +32924,7 @@
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn btn-primary', role: 'button', onClick: this.back },
-	          _react2.default.createElement('img', { src: 'resources/images/back_button.png',
+	          _react2.default.createElement('img', { src: 'http://codenamekash.com/aau/wnm617/midterm/image/back_button.png',
 	            style: { "width": "15px", "marginRight": "4px", "marginTop": "-3px" } }),
 	          'Back'
 	        ),
@@ -33758,7 +33778,7 @@
 	    value: function componentDidMount() {
 	      var component = this;
 	      _jquery2.default.ajax({
-	        url: 'webapi/mainresource/chart/1500',
+	        url: 'http://localhost:8080/webapi/mainresource/chart/1500',
 	        success: function success(data) {
 	          var values = data.split("|");
 	          var items = [];

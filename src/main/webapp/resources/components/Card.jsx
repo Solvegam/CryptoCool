@@ -5,8 +5,10 @@ export default class Card extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            currency: "BTC",
-            price: "1000 USD",
+            symbol: "BTC",
+            price_usd: "1000 USD",
+            pair: "BTC/LTC",
+            price_btc: "1000 USD",
             riskLvl: "NON-RISKY",
             avatar_url: "http://bitcoin.org/img/icons/opengraph.png"
         };
@@ -16,7 +18,7 @@ export default class Card extends React.Component{
     componentDidMount() {
         let component = this;
         $.ajax({
-            url: 'webapi/mainresource/cards',
+            url: 'webapi/mainresource/coinmarker',
             dataType: 'json',
             success: function(data){
                 console.log(data);
@@ -26,7 +28,7 @@ export default class Card extends React.Component{
     }
 
     onClickHandler(){
-      this.props.onClick(this.state.currency);
+      this.props.onClick(this.state.symbol);
     }
 
     render() {
@@ -42,8 +44,11 @@ export default class Card extends React.Component{
             <div className="thumbnail">
                 <img src={this.state.avatar_url} width="80"/>
                 <div className="caption">
-                    <p>SYMBOL {this.state.currency}</p>
-                    <p>PRICE {this.state.price}</p>
+                    <p>SYMBOL {this.state.symbol}</p>
+                    <p>NAME {this.state.name}</p>
+                    <p>PRICE USD {this.state.price_usd}</p>
+                    <p>PAIR/BTC {this.state.symbol + '/' + 'BTC'}</p>
+                    <p>PRICE BTC {this.state.price_btc}</p>
                     <p>RISK LVL {this.state.riskLvl}</p>
                     <div className='progress'>
                         <div className={computeRiskClasslvl(rand)}

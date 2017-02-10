@@ -21,6 +21,11 @@ export default class Card extends React.Component{
 
     render() {
 
+      const DIGIT_FORMATTER = new Intl.NumberFormat("de-CH", {
+        minimumFractionDigits: 5,
+        maximumFractionDigits: 20
+      });
+
         let computeRiskClasslvl = (randtradeAdvice) => {
             if (randtradeAdvice<40) return 'progress-bar progress-bar-danger';
             else if (randtradeAdvice>60) return 'progress-bar progress-bar-success';
@@ -39,9 +44,9 @@ export default class Card extends React.Component{
                 <div className="caption">
                     <p><label>SYMBOL</label> {data.symbol}</p>
                     <p><label>NAME</label> {data.name}</p>
-                    <p><label>PRICE USD</label> {data.price_usd}</p>
+                    <p><label>PRICE USD</label> {DIGIT_FORMATTER.format(data.price_usd)}</p>
                     <p><label>PAIR/BTC</label> {data.symbol + '/' + 'BTC'}</p>
-                    <p><label>PRICE BTC</label> {data.price_btc}</p>
+                    <p><label>PRICE BTC</label> {DIGIT_FORMATTER.format(data.price_btc)}</p>
                     <p><label>RISK LVL</label> {getRiskLabel(tradeAdvice)}</p>
                     <div className='progress'>
                         <div className={computeRiskClasslvl(tradeAdvice)}

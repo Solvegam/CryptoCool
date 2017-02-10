@@ -32700,6 +32700,11 @@
 	        key: 'render',
 	        value: function render() {
 
+	            var DIGIT_FORMATTER = new Intl.NumberFormat("de-CH", {
+	                minimumFractionDigits: 5,
+	                maximumFractionDigits: 20
+	            });
+
 	            var computeRiskClasslvl = function computeRiskClasslvl(randtradeAdvice) {
 	                if (randtradeAdvice < 40) return 'progress-bar progress-bar-danger';else if (randtradeAdvice > 60) return 'progress-bar progress-bar-success';else if (randtradeAdvice < 60 || randtradeAdvice > 40) return 'progress-bar progress-bar-warning';
 	            };
@@ -32749,7 +32754,7 @@
 	                                'PRICE USD'
 	                            ),
 	                            ' ',
-	                            data.price_usd
+	                            DIGIT_FORMATTER.format(data.price_usd)
 	                        ),
 	                        _react2.default.createElement(
 	                            'p',
@@ -32771,7 +32776,7 @@
 	                                'PRICE BTC'
 	                            ),
 	                            ' ',
-	                            data.price_btc
+	                            DIGIT_FORMATTER.format(data.price_btc)
 	                        ),
 	                        _react2.default.createElement(
 	                            'p',

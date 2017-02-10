@@ -1,7 +1,11 @@
 package com.crypto.cool.resources;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,13 +14,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
-import com.crypto.cool.service.CryptoCoins;
-import com.fasterxml.jackson.core.JsonGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.crypto.cool.service.CryptoCoins;
 import com.crypto.cool.service.IBMService;
 import com.crypto.cool.service.RandomChartService;
+import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
@@ -86,6 +91,23 @@ public class MainResource {
 	public String getAllCryptos() throws IOException {
 	    ObjectMapper mapper = new ObjectMapper().enable(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN);
         return mapper.writeValueAsString(cryptoCoins.getBestCoins());
+	}
+
+	@GET
+	@Path("/getImageForCoin/{symbol}")
+	public Response getAllCryptos(@PathParam("symbol") String symbol) throws IOException {
+		URL url = new URL("http://capfeed.com/images/currencyicons/" + symbol + "-64.png");
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+		InputStream in = connection.getInputStream();
+		int inputLine;
+		while ((inputLine = in.read()) != -1) {
+			byteArrayOutputStream.write(inputLine);
+		}
+		in.close();
+		return Response.ok(byteArrayOutputStream.toByteArray(), MediaType.APPLICATION_OCTET_STREAM).build();
 	}
 
 }

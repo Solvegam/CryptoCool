@@ -2,6 +2,8 @@ package com.crypto.cool.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
+
 /**
  * Created by ivan on 2/10/17.
  */
@@ -10,15 +12,15 @@ public class CryptoCoin {
     private String name;
     private String symbol;
     private int rank;
-    private double price_usd;
-    private double price_btc;
-    private double day_volume_usd;
-    private double market_cap_usd;
-    private double available_supply;
-    private double total_supply;
-    private double percent_change_1h;
-    private double percent_change_24h;
-    private double percent_change_7d;
+    private BigDecimal price_usd;
+    private BigDecimal price_btc;
+    private BigDecimal day_volume_usd;
+    private BigDecimal market_cap_usd;
+    private BigDecimal available_supply;
+    private BigDecimal total_supply;
+    private BigDecimal percent_change_1h;
+    private BigDecimal percent_change_24h;
+    private BigDecimal percent_change_7d;
     private long last_updated;
 
     public CryptoCoin() {
@@ -56,77 +58,77 @@ public class CryptoCoin {
         this.rank = rank;
     }
 
-    public double getPrice_usd() {
+    public BigDecimal getPrice_usd() {
         return price_usd;
     }
 
-    public void setPrice_usd(double price_usd) {
+    public void setPrice_usd(BigDecimal price_usd) {
         this.price_usd = price_usd;
     }
 
-    public double getPrice_btc() {
+    public BigDecimal getPrice_btc() {
         return price_btc;
     }
 
-    public void setPrice_btc(double price_btc) {
+    public void setPrice_btc(BigDecimal price_btc) {
         this.price_btc = price_btc;
     }
 
     @JsonProperty("day_volume_usd")
-    public double getDay_volume_usd() {
+    public BigDecimal getDay_volume_usd() {
         return day_volume_usd;
     }
 
     @JsonProperty("24h_volume_usd")
-    public void setDay_volume_usd(double day_volume_usd) {
+    public void setDay_volume_usd(BigDecimal day_volume_usd) {
         this.day_volume_usd = day_volume_usd;
     }
 
-    public double getMarket_cap_usd() {
+    public BigDecimal getMarket_cap_usd() {
         return market_cap_usd;
     }
 
-    public void setMarket_cap_usd(double market_cap_usd) {
+    public void setMarket_cap_usd(BigDecimal market_cap_usd) {
         this.market_cap_usd = market_cap_usd;
     }
 
-    public double getAvailable_supply() {
+    public BigDecimal getAvailable_supply() {
         return available_supply;
     }
 
-    public void setAvailable_supply(double available_supply) {
+    public void setAvailable_supply(BigDecimal available_supply) {
         this.available_supply = available_supply;
     }
 
-    public double getTotal_supply() {
+    public BigDecimal getTotal_supply() {
         return total_supply;
     }
 
-    public void setTotal_supply(double total_supply) {
+    public void setTotal_supply(BigDecimal total_supply) {
         this.total_supply = total_supply;
     }
 
-    public double getPercent_change_1h() {
+    public BigDecimal getPercent_change_1h() {
         return percent_change_1h;
     }
 
-    public void setPercent_change_1h(double percent_change_1h) {
+    public void setPercent_change_1h(BigDecimal percent_change_1h) {
         this.percent_change_1h = percent_change_1h;
     }
 
-    public double getPercent_change_24h() {
+    public BigDecimal getPercent_change_24h() {
         return percent_change_24h;
     }
 
-    public void setPercent_change_24h(double percent_change_24h) {
+    public void setPercent_change_24h(BigDecimal percent_change_24h) {
         this.percent_change_24h = percent_change_24h;
     }
 
-    public double getPercent_change_7d() {
+    public BigDecimal getPercent_change_7d() {
         return percent_change_7d;
     }
 
-    public void setPercent_change_7d(double percent_change_7d) {
+    public void setPercent_change_7d(BigDecimal percent_change_7d) {
         this.percent_change_7d = percent_change_7d;
     }
 

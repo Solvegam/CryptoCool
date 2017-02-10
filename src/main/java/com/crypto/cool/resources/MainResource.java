@@ -95,19 +95,19 @@ public class MainResource {
 
 	@GET
 	@Path("/getImageForCoin/{symbol}")
-	public Response getAllCryptos(@PathParam("symbol") String symbol) throws IOException {
-		URL url = new URL("http://capfeed.com/images/currencyicons/" + symbol + "-64.png");
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("GET");
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+	public String getAllCryptos(@PathParam("symbol") String symbol) throws IOException {
+		try {
+			URL url = new URL("http://capfeed.com/images/currencyicons/" + symbol + "-64.png");
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			InputStream in = connection.getInputStream();
+			in.read();
+			in.close();
+			return "true";
 
-		InputStream in = connection.getInputStream();
-		int inputLine;
-		while ((inputLine = in.read()) != -1) {
-			byteArrayOutputStream.write(inputLine);
+		}catch (Exception e){
+			return "false";
 		}
-		in.close();
-		return Response.ok(byteArrayOutputStream.toByteArray(), MediaType.APPLICATION_OCTET_STREAM).build();
 	}
 
 }
